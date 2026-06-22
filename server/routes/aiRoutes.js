@@ -1,0 +1,7 @@
+"use strict";
+const router = require("express").Router();
+const { aiQuery } = require("../controllers/aiController");
+const { protect } = require("../middleware/authMiddleware");
+router.use(protect);
+router.post("/query", aiQuery);
+module.exports = router;

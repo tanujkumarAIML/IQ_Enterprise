@@ -1,0 +1,30 @@
+{
+  "name": "InterviewIQ.AI",
+  "short_name": "InterviewIQ",
+  "description": "AI-powered Interview Preparation Platform using MERN, Machine Learning, NLP and Generative AI.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F8FAFC",
+  "theme_color": "#6D28D9",
+  "lang": "en",
+
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

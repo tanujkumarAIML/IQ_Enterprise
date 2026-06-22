@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+
+  mongodb:
+    image: mongo:7
+    container_name: interviewiq-db
+    restart: always
+
+    ports:
+      - "27017:27017"
+
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+
+    container_name: interviewiq-server
+
+    restart: always
+
+    env_file:
+      - server/.env
+
+    depends_on:
+      - mongodb
+
+    ports:
+      - "5000:5000"
+
+  python-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile.python
+
+    container_name: interviewiq-python
+
+    restart: always
+
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+
+    container_name: interviewiq-client
+
+    restart: always
+
+    ports:
+      - "80:80"
+
+    depends_on:
+      - backend
+
+volumes:
+
+  mongo_data:

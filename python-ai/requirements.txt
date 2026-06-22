@@ -1,0 +1,47 @@
+# FastAPI & Server
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+python-multipart==0.0.12
+httpx==0.28.1
+pydantic==2.10.4
+python-dotenv==1.0.1
+
+# Google Gemini AI
+google-generativeai==0.8.3
+
+# NLP
+spacy==3.7.6
+nltk==3.9.1
+
+# Resume Parsing
+PyPDF2==3.0.1
+pdfminer.six==20231228
+python-docx==1.1.2
+PyMuPDF==1.24.14
+
+# ML & Data Science
+scikit-learn==1.6.0
+numpy==2.2.0
+pandas==2.2.3
+joblib==1.4.2
+
+# Text Analysis
+textstat==0.7.3
+textblob==0.18.0
+pyspellchecker==0.8.1
+
+# Sentence Transformers (semantic similarity)
+sentence-transformers==3.3.1
+
+# Audio Analysis (optional - comment out if install fails)
+librosa==0.10.2
+
+# Transformers
+transformers==4.47.1
+
+# Computer Vision (optional - comment out if install fails)
+# opencv-python-headless==4.10.0.84
+
+# PyTorch (CPU only for deployment speed)
+# torch==2.5.1
+# torchvision==0.20.1

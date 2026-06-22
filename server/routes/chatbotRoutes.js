@@ -1,0 +1,10 @@
+"use strict";
+const router = require("express").Router();
+const ctrl = require("../controllers/aiController");
+const { protect } = require("../middleware/authMiddleware");
+router.use(protect);
+router.post("/",           ctrl.chatWithAssistant);
+router.get("/history",     ctrl.getChatHistory);
+router.get("/:id",         ctrl.getChat);
+router.delete("/:id",      ctrl.deleteChat);
+module.exports = router;
