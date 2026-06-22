@@ -251,4 +251,4 @@ POST /api/voice/analyze-text  → Voice sentiment from transcript
 
 ---
 
-© 2025 InterviewIQ AI — Built for developers, by developers.
+© 2026 InterviewIQ AI — Built for developers, by developers.
