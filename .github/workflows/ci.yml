@@ -7,76 +7,139 @@ on:
     branches: [main]
 
 jobs:
-  # ─── Client Build ─────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────
+  # Frontend Build
+  # ─────────────────────────────────────────────────────────
   client:
     name: Frontend Build
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: client
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: 20
+          cache: npm
           cache-dependency-path: client/package-lock.json
-      - run: npm ci
-      - run: npm run build
-      - name: Upload dist artifact
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Frontend
+        run: npm run build
+
+      - name: Upload Build
         uses: actions/upload-artifact@v4
         with:
           name: client-dist
           path: client/dist
 
-  # ─── Server Check ─────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────
+  # Backend Check
+  # ─────────────────────────────────────────────────────────
   server:
     name: Backend Check
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: server
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: 20
+          cache: npm
           cache-dependency-path: server/package-lock.json
-      - run: npm ci
-      - name: Syntax check
-        run: node --check app.js && node --check server.js
-      - name: Import check
-        run: node -e "require('./app')" 2>&1 | head -5 || true
 
-  # ─── Python AI Check ──────────────────────────────────────
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Syntax Check
+        run: |
+          node --check app.js
+          node --check server.js
+
+      - name: Import Check
+        run: |
+          node -e "require('./app')"
+
+  # ─────────────────────────────────────────────────────────
+  # Python AI Check
+  # ─────────────────────────────────────────────────────────
   python:
     name: Python AI Check
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: python-ai
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install fastapi uvicorn pydantic python-dotenv google-generativeai
-      - name: Syntax check
-        run: python -m py_compile main.py routers/nlp.py routers/resume.py routers/analysis.py routers/interview.py routers/vision.py routers/voice.py
-      - name: Import check
-        run: python -c "from main import app; print('FastAPI app OK')"
 
-  # ─── Docker Build (main only) ─────────────────────────────
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Install Python Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Syntax Check
+        run: |
+          python -m py_compile main.py
+          python -m py_compile routers/nlp.py
+          python -m py_compile routers/resume.py
+          python -m py_compile routers/analysis.py
+          python -m py_compile routers/interview.py
+          python -m py_compile routers/vision.py
+          python -m py_compile routers/voice.py
+
+      - name: Import Check
+        run: |
+          python -c "from main import app; print('FastAPI app OK')"
+
+  # ─────────────────────────────────────────────────────────
+  # Docker Build
+  # ─────────────────────────────────────────────────────────
   docker:
     name: Docker Build
     runs-on: ubuntu-latest
-    needs: [client, server, python]
+
+    needs:
+      - client
+      - server
+      - python
+
     if: github.ref == 'refs/heads/main'
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: docker/setup-buildx-action@v3
-      - name: Build server image
-        run: docker build -f docker/Dockerfile.server -t interviewiq-server:${{ github.sha }} ./server
-      - name: Build python-ai image
-        run: docker build -f docker/Dockerfile.python -t interviewiq-python:${{ github.sha }} ./python-ai
+
+      - name: Build Server Image
+        run: |
+          docker build \
+            -f docker/Dockerfile.server \
+            -t interviewiq-server:${{ github.sha }} \
+            ./server
+
+      - name: Build Python Image
+        run: |
+          docker build \
+            -f docker/Dockerfile.python \
+            -t interviewiq-python:${{ github.sha }} \
+            ./python-ai
