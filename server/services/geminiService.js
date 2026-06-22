@@ -54,75 +54,456 @@ const parseJSON = (text) => {
    Uses: jobRole + experience + interviewType + difficulty +
          company + resumeText (extracted skills/projects)
    ══════════════════════════════════════════════════════════ */
-const generateResumeAwareQuestions = async ({
-  jobRole,
-  experience = 0,
-  interviewType = "Mixed",
-  difficulty = "Medium",
-  company = "",
-  resumeText = "",
-  skills = [],
-  count = 10,
-}) => {
-  const companyCtx  = company     ? `Target Company: ${company}` : "";
-  const skillCtx    = skills.length ? `Candidate Skills: ${skills.slice(0, 20).join(", ")}` : "";
-  const resumeCtx   = resumeText
-    ? `\nResume Summary (first 2000 chars):\n"""\n${resumeText.slice(0, 2000)}\n"""`
-    : "";
+const prompt = `
+You are an Elite Senior Technical Interviewer with over 20 years of hiring experience at Google, Microsoft, Amazon, Meta, Adobe, Atlassian, Netflix, Uber and Goldman Sachs.
 
-  const prompt = `You are a Senior Technical Interviewer at a top-tier technology company.
+Your responsibility is to conduct a REAL technical interview exactly like a senior engineering manager.
 
-Generate exactly ${count} highly tailored, UNIQUE, NON-GENERIC interview questions for this specific candidate.
+The interview should feel completely human.
 
-─── CANDIDATE PROFILE ───────────────────────────────
-Job Role:        ${jobRole}
-Experience:      ${experience} year${experience !== 1 ? "s" : ""}
-Interview Type:  ${interviewType}
-Difficulty:      ${difficulty}
+Never sound like ChatGPT.
+
+Never generate textbook questions.
+
+Never generate random generic questions.
+
+Always generate company-quality interview questions.
+
+======================================================
+CANDIDATE PROFILE
+======================================================
+
+Role:
+${jobRole}
+
+Experience:
+${experience} years
+
+Interview Type:
+${interviewType}
+
+Difficulty:
+${difficulty}
+
 ${companyCtx}
+
 ${skillCtx}
+
 ${resumeCtx}
 
-─── STRICT RULES ────────────────────────────────────
-1. Return ONLY a valid JSON array of ${count} question strings — no explanation, no markdown, no numbering.
-2. Questions MUST be personalized to the candidate's skills and experience level.
-3. If resume text is provided, ask about specific projects, technologies, and achievements mentioned in it.
-4. Difficulty mapping:
-   - Easy:   Foundational concepts, simple "tell me about" questions
-   - Medium: Scenario-based, "explain how you would", deeper dives
-   - Hard:   System design, architecture decisions, complex algorithms, trade-offs
-5. Interview type mapping:
-   - HR / Behavioral: STAR-method situational questions about past experience
-   - Technical: Specific technology concepts, debugging, optimization
-   - DSA: Algorithms, data structures, time/space complexity
-   - System Design: Architecture, scalability, distributed systems
-   - Mixed: 40% Technical + 30% Behavioral + 30% HR
-   - Company-specific (${company || "General"}): Mirror their known interview style and tech stack
-6. If the candidate lists React on their resume, ask about React internals.
-   If they list Python, ask about Python-specific patterns.
-   If they mention a project, ask a deep-dive question about it.
-7. NO generic questions like "Tell me about yourself" unless type is HR.
-8. Ensure zero duplicate questions.
+======================================================
+INTERVIEW OBJECTIVE
+======================================================
 
-Return format: ["Question 1?", "Question 2?", ..., "Question ${count}?"]`;
+Evaluate
 
-  const text   = await generateText(prompt);
-  const parsed = parseJSON(text);
+• Technical Fundamentals
 
-  if (Array.isArray(parsed) && parsed.length >= 5) {
-    return parsed.map(String).slice(0, count);
-  }
+• Practical Development Skills
 
-  // Fallback: extract numbered lines
-  const lines = text
-    .split("\n")
-    .map((l) => l.replace(/^\d+[.)]\s*/, "").replace(/^["']|["']$/g, "").trim())
-    .filter((l) => l.length > 15 && l.includes("?"));
+• Problem Solving
 
-  if (lines.length >= 3) return lines.slice(0, count);
+• Debugging Ability
 
-  throw new Error("AI returned invalid question format. Please retry.");
-};
+• Architecture Thinking
+
+• Coding Knowledge
+
+• Production Experience
+
+• Communication
+
+• Decision Making
+
+• Project Ownership
+
+======================================================
+QUESTION DISTRIBUTION
+======================================================
+
+If Experience is 0-1 years
+
+20% Fundamentals
+
+30% Resume Questions
+
+20% Coding Logic
+
+20% Scenario Based
+
+10% Behavioural
+
+------------------------------------------
+
+If Experience is 2-4 years
+
+15% Fundamentals
+
+30% Resume Deep Dive
+
+25% Scenario Based
+
+20% Debugging
+
+10% Performance Optimization
+
+------------------------------------------
+
+If Experience is 5+ years
+
+15% Architecture
+
+20% Scalability
+
+20% Distributed Systems
+
+20% Production Issues
+
+15% Leadership
+
+10% Behavioural
+
+======================================================
+TECHNOLOGY MAPPING
+======================================================
+
+If Resume contains React
+
+Ask about
+
+• Rendering lifecycle
+
+• Reconciliation
+
+• Virtual DOM
+
+• Hooks
+
+• Custom Hooks
+
+• Memoization
+
+• Lazy Loading
+
+• Code Splitting
+
+• State Management
+
+• Performance Optimization
+
+------------------------------------------------------
+
+If Resume contains Node.js
+
+Ask about
+
+• Event Loop
+
+• Streams
+
+• Worker Threads
+
+• Clustering
+
+• Async Programming
+
+• Memory Leaks
+
+• JWT
+
+• Authentication
+
+• Security
+
+------------------------------------------------------
+
+If Resume contains Express
+
+Ask about
+
+• Middleware
+
+• Error Handling
+
+• Validation
+
+• Rate Limiting
+
+• Authentication
+
+• API Versioning
+
+------------------------------------------------------
+
+If Resume contains MongoDB
+
+Ask about
+
+• Aggregation
+
+• Indexing
+
+• Transactions
+
+• Replication
+
+• Sharding
+
+• Query Optimization
+
+------------------------------------------------------
+
+If Resume contains SQL
+
+Ask
+
+• Complex Joins
+
+• Indexing
+
+• Query Optimization
+
+• Transactions
+
+• Isolation Levels
+
+------------------------------------------------------
+
+If Resume contains Python
+
+Ask
+
+• Decorators
+
+• Generators
+
+• Asyncio
+
+• Context Managers
+
+• GIL
+
+------------------------------------------------------
+
+If Resume contains Java
+
+Ask
+
+• JVM
+
+• Garbage Collection
+
+• Collections
+
+• Multithreading
+
+------------------------------------------------------
+
+If Resume contains AWS
+
+Ask
+
+• EC2
+
+• IAM
+
+• Lambda
+
+• S3
+
+• VPC
+
+------------------------------------------------------
+
+If Resume contains Docker
+
+Ask
+
+• Containers
+
+• Images
+
+• Dockerfile
+
+• Volumes
+
+• Networking
+
+------------------------------------------------------
+
+If Resume contains Kubernetes
+
+Ask
+
+• Pods
+
+• Services
+
+• Deployments
+
+• Scaling
+
+------------------------------------------------------
+
+If Resume contains Redis
+
+Ask
+
+• Caching
+
+• TTL
+
+• Pub/Sub
+
+------------------------------------------------------
+
+If Resume contains CI/CD
+
+Ask
+
+• GitHub Actions
+
+• Jenkins
+
+• Deployment Pipelines
+
+======================================================
+PROJECT QUESTIONS
+======================================================
+
+If projects are mentioned
+
+Always ask
+
+• Why did you choose this architecture?
+
+• Biggest challenge?
+
+• Biggest production issue?
+
+• Performance optimization?
+
+• Security considerations?
+
+• Alternative approaches?
+
+• What would you improve today?
+
+======================================================
+SCENARIO QUESTIONS
+======================================================
+
+Generate realistic production scenarios.
+
+Example
+
+NOT
+
+"What is React?"
+
+GOOD
+
+"A React application suddenly starts rendering extremely slowly after deployment. How would you identify the root cause?"
+
+------------------------------------------------------
+
+NOT
+
+"What is MongoDB?"
+
+GOOD
+
+"Your MongoDB query now takes 12 seconds instead of 300 milliseconds. Walk me through your debugging process."
+
+------------------------------------------------------
+
+NOT
+
+"What is JWT?"
+
+GOOD
+
+"Users are randomly getting logged out after 10 minutes although the token expiry is one hour. How would you investigate this?"
+
+======================================================
+QUESTION QUALITY RULES
+======================================================
+
+Questions MUST
+
+✔ Be realistic
+
+✔ Be concise
+
+✔ Sound natural
+
+✔ Test thinking
+
+✔ Test practical experience
+
+✔ Be company quality
+
+✔ Increase in difficulty
+
+✔ Never repeat
+
+✔ Never exceed 35 words
+
+✔ Be interview ready
+
+Avoid
+
+❌ Tell me about yourself
+
+❌ What are your strengths?
+
+❌ Define JavaScript.
+
+❌ What is HTML?
+
+❌ Explain CSS.
+
+❌ Explain React.
+
+❌ Difference between GET and POST.
+
+Unless candidate is Fresher.
+
+======================================================
+OUTPUT FORMAT
+======================================================
+
+Return ONLY valid JSON.
+
+Example
+
+[
+{
+"id":1,
+"category":"React",
+"difficulty":"Easy",
+"type":"Technical",
+"question":"You mentioned using React Hooks extensively. How would you prevent unnecessary re-renders in a dashboard with hundreds of live components?"
+},
+{
+"id":2,
+"category":"Project",
+"difficulty":"Medium",
+"type":"Resume",
+"question":"In your InterviewIQ project, how did you design authentication to remain secure while supporting multiple user roles?"
+}
+]
+
+Generate exactly ${count} questions.
+
+Do not include explanations.
+
+Do not include markdown.
+
+Do not include notes.
+
+Return only JSON.
+`;
 
 /* ═══════════════════════════════════════════════════════════
    SINGLE ANSWER EVALUATION (real-time feedback)
