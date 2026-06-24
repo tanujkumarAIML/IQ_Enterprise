@@ -9,7 +9,6 @@ import {
 } from "react-icons/ri";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import {
@@ -44,6 +43,45 @@ const QUICK_STARTERS = {
   hr:        ["Common behavioral questions at Google?", "How to explain gaps in resume?", "How to negotiate a job offer?"],
 };
 
+// ── FIX 1 + FIX 2: Correct ReactMarkdown v9 code renderer with language fallback ──
+const MarkdownCodeRenderer = {
+  code(props) {
+    const { children, className } = props;
+
+    const code = String(children).replace(/\n$/, "");
+
+    // FIX 2: If language missing (model forgot backtick lang), default to python
+    const match =
+      /language-(\w+)/.exec(className || "") ||
+      (code.includes("def ") || code.includes("print(") ? ["", "python"] : null);
+
+    if (match) {
+      return (
+        <SyntaxHighlighter
+          language={match[1] || "python"}
+          style={oneDark}
+          PreTag="div"
+          customStyle={{
+            borderRadius: 12,
+            padding: "18px",
+            fontSize: 14,
+            margin: "12px 0",
+          }}
+        >
+          {code}
+        </SyntaxHighlighter>
+      );
+    }
+
+    // Inline code
+    return (
+      <code className="bg-slate-100 dark:bg-slate-700 text-violet-700 dark:text-violet-300 px-1.5 py-0.5 rounded text-sm font-mono">
+        {code}
+      </code>
+    );
+  },
+};
+
 // ── AI Message (with actions) ────────────────────────────────────────────────
 const AIMessage = ({ content }) => {
   const [copied, setCopied] = useState(false);
@@ -57,37 +95,28 @@ const AIMessage = ({ content }) => {
 
   return (
     <>
-      {/* Improved typography: #6 */}
-      <div className="prose prose-sm max-w-none prose-slate dark:prose-invert text-[15px] leading-7">
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
-          components={{
-            code({ inline, className, children }) {
-              const match = /language-(\w+)/.exec(className || "");
-              return !inline && match ? (
-                <SyntaxHighlighter
-                  language={match[1]}
-                  style={oneDark}
-                  customStyle={{ borderRadius: 12, fontSize: 14, marginTop: 16, marginBottom: 16 }}
-                >
-                  {String(children).replace(/\n$/, "")}
-                </SyntaxHighlighter>
-              ) : (
-                <code className="bg-slate-200 dark:bg-slate-700 px-1 rounded text-[13px]">
-                  {children}
-                </code>
-              );
-            },
-          }}
-        >
-          {content}
-        </ReactMarkdown>
-      </div>
+      {/* FIX 1: components prop uses MarkdownCodeRenderer correctly */}
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={MarkdownCodeRenderer}
+        className="prose prose-sm dark:prose-invert max-w-none
+          prose-headings:font-semibold prose-headings:text-slate-800 dark:prose-headings:text-slate-100
+          prose-p:leading-7 prose-p:text-slate-700 dark:prose-p:text-slate-300
+          prose-li:text-slate-700 dark:prose-li:text-slate-300
+          prose-strong:text-slate-800 dark:prose-strong:text-slate-100
+          prose-a:text-violet-600 prose-a:no-underline hover:prose-a:underline
+          prose-table:text-sm prose-thead:bg-slate-50 dark:prose-thead:bg-slate-700
+          prose-th:px-3 prose-th:py-2 prose-td:px-3 prose-td:py-2"
+      >
+        {content}
+      </ReactMarkdown>
 
       {/* Action buttons */}
       <div className="flex gap-2 mt-3">
-        <button onClick={copy} className="flex items-center gap-1 text-xs text-slate-400 hover:text-violet-600 transition">
+        <button
+          onClick={copy}
+          className="flex items-center gap-1 text-xs text-slate-400 hover:text-violet-600 transition"
+        >
           {copied ? <RiCheckLine /> : <RiClipboardLine />}
           {copied ? "Copied" : "Copy"}
         </button>
@@ -123,7 +152,6 @@ const MsgBubble = ({ msg }) => {
         </div>
       )}
 
-      {/* Fixed: single <div>, content rendered correctly */}
       <div
         className={`max-w-[85%] xl:max-w-[70%] px-4 py-3 rounded-2xl text-[15px] leading-7 ${
           isUser
@@ -143,7 +171,7 @@ const MsgBubble = ({ msg }) => {
   );
 };
 
-// ── Typing Indicator (#7: wave bars) ────────────────────────────────────────
+// ── Typing Indicator ─────────────────────────────────────────────────────────
 const TypingIndicator = () => (
   <div className="flex items-end gap-2.5">
     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center">
@@ -221,10 +249,15 @@ const Chatbot = () => {
         type: chatType,
       });
 
+      // FIX 3: Log backend response for debugging
+      console.log("=============== AI RESPONSE ===============");
+      console.log(data.response);
+      console.log("===========================================");
+
       const assistantMessage =
-      typeof data.response === "string"
-      ? data.response
-      : JSON.stringify(data.response, null, 2);
+        typeof data.response === "string"
+          ? data.response
+          : JSON.stringify(data.response, null, 2);
 
       if (!activeChat) {
         const { data: chatData } = await api.get(`/chatbot/${data.chatId}`);
@@ -333,7 +366,6 @@ const Chatbot = () => {
             </div>
 
             <div className="ml-auto flex items-center gap-3">
-              {/* #9 – AI Badge */}
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                 <span className="text-xs font-semibold text-green-600">Gemini AI Online</span>
@@ -383,7 +415,7 @@ const Chatbot = () => {
             <div ref={bottomRef} />
           </div>
 
-          {/* Input — #8 AutoGrow Textarea */}
+          {/* Input */}
           <div className="px-4 py-3 border-t border-slate-100 dark:border-slate-700 shrink-0">
             <div className="flex gap-2 items-end">
               <TextareaAutosize
