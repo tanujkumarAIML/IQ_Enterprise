@@ -80,102 +80,19 @@ const STATS = [
   { value: "4.9★", label: "User Rating" },
 ];
 
+// Step 1: Updated COMPANIES array with logos
 const COMPANIES = [
-  {
-    name: "Google",
-    logo: "https://cdn.simpleicons.org/google",
-  },
-  {
-    name: "Amazon",
-    logo: "https://cdn.simpleicons.org/amazon",
-  },
-  {
-    name: "Microsoft",
-    logo: "https://cdn.simpleicons.org/microsoft",
-  },
-  {
-    name: "Meta",
-    logo: "https://cdn.simpleicons.org/meta",
-  },
-  {
-    name: "Apple",
-    logo: "https://cdn.simpleicons.org/apple",
-  },
-  {
-    name: "Netflix",
-    logo: "https://cdn.simpleicons.org/netflix",
-  },
-  {
-    name: "Adobe",
-    logo: "https://cdn.simpleicons.org/adobe",
-  },
-  {
-    name: "Uber",
-    logo: "https://cdn.simpleicons.org/uber",
-  },
-  {
-    name: "Infosys",
-    logo: "https://cdn.simpleicons.org/infosys",
-  },
-  {
-    name: "TCS",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg",
-  },
+  { name: "Google",    logo: "https://cdn.simpleicons.org/google" },
+  { name: "Amazon",   logo: "https://cdn.simpleicons.org/amazon" },
+  { name: "Microsoft",logo: "https://cdn.simpleicons.org/microsoft" },
+  { name: "Meta",     logo: "https://cdn.simpleicons.org/meta" },
+  { name: "Apple",    logo: "https://cdn.simpleicons.org/apple" },
+  { name: "Netflix",  logo: "https://cdn.simpleicons.org/netflix" },
+  { name: "Adobe",    logo: "https://cdn.simpleicons.org/adobe" },
+  { name: "Uber",     logo: "https://cdn.simpleicons.org/uber" },
+  { name: "Infosys",  logo: "https://cdn.simpleicons.org/infosys" },
+  { name: "TCS",      logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg" },
 ];
-
-
-{/* ── Company Logos ── */}
-<section className="py-10 border-y border-white/10 overflow-hidden">
-
-<p className="text-center text-xs uppercase tracking-[0.3em] text-slate-500 mb-8 font-semibold">
-Candidates Placed At
-</p>
-
-<div className="overflow-hidden">
-
-<div className="flex animate-marquee gap-8 w-max">
-
-{[...COMPANIES,...COMPANIES].map((company,index)=>(
-
-<div
-key={index}
-className="
-flex
-items-center
-gap-3
-min-w-[190px]
-bg-white/5
-border
-border-white/10
-rounded-2xl
-px-6
-py-4
-hover:bg-white/10
-hover:scale-105
-transition-all
-duration-300
-"
->
-
-<img
-src={company.logo}
-alt={company.name}
-className="w-8 h-8 object-contain grayscale hover:grayscale-0 transition"
-/>
-
-<span className="font-semibold text-white">
-{company.name}
-</span>
-
-</div>
-
-))}
-
-</div>
-
-</div>
-
-</section>
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -185,6 +102,7 @@ const fade = (delay = 0) => ({
 
 const Home = () => (
   <div className="min-h-screen bg-slate-900 text-white">
+
     {/* ── Navbar ── */}
     <nav className="sticky top-0 z-50 backdrop-blur-lg bg-slate-900/80 border-b border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -211,7 +129,6 @@ const Home = () => (
 
     {/* ── Hero ── */}
     <section className="relative overflow-hidden py-24 px-6">
-      {/* Background glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-violet-600/20 rounded-full blur-[120px]" />
       </div>
@@ -265,14 +182,51 @@ const Home = () => (
     </section>
 
     {/* ── Company Logos ── */}
-    <section className="py-8 border-y border-white/10 overflow-hidden">
-      <p className="text-center text-xs text-slate-500 uppercase tracking-widest mb-5 font-semibold">
-        Candidates placed at
-      </p>
-      <div className="flex gap-8 items-center justify-center flex-wrap px-6">
-        {COMPANIES.map((c) => (
-          <span key={c} className="text-slate-400 text-sm font-bold hover:text-white transition">{c}</span>
-        ))}
+    {/* Step 4: gradient background */}
+    <section className="relative py-14 overflow-hidden border-y border-white/10 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950">
+
+      {/* Step 5: Glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/10 blur-[120px]" />
+      </div>
+
+      {/* Step 6: Better heading */}
+      <div className="text-center mb-10">
+        <p className="uppercase tracking-[0.35em] text-violet-400 text-xs font-bold">
+          TRUSTED BY TOP COMPANIES
+        </p>
+        <h3 className="text-3xl font-bold mt-3">
+          Candidates Placed At
+        </h3>
+        <p className="text-slate-400 mt-2 text-sm">
+          Thousands of developers landed interviews at leading companies.
+        </p>
+      </div>
+
+      <div className="overflow-hidden">
+        {/* Step 11: Fade edges */}
+        <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-slate-950 to-transparent z-10" />
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-slate-950 to-transparent z-10" />
+
+        <div className="flex animate-marquee gap-8 w-max">
+          {[...COMPANIES, ...COMPANIES].map((company, index) => (
+            <div
+              key={index}
+              className="group flex items-center gap-4 min-w-[210px] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl px-6 py-5 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:border-violet-500/40 hover:bg-white/10 hover:shadow-violet-500/20"
+            >
+              {/* Step 8: Better logo */}
+              <img
+                src={company.logo}
+                alt={company.name}
+                className="w-10 h-10 object-contain grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"
+              />
+              {/* Step 9: Better name */}
+              <span className="font-semibold text-lg text-white group-hover:text-violet-300 transition">
+                {company.name}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -312,10 +266,10 @@ const Home = () => (
         </h2>
         <div className="grid sm:grid-cols-4 gap-6">
           {[
-            { step: "01", title: "Upload Resume",       desc: "PDF or DOCX — AI extracts skills, projects & experience" },
-            { step: "02", title: "Choose Interview",    desc: "Select role, type, difficulty & target company" },
-            { step: "03", title: "AI Generates Q&A",   desc: "Gemini creates 10 personalized questions based on YOUR resume" },
-            { step: "04", title: "Get Your Report",    desc: "Detailed scores, feedback, strengths & improvement plan" },
+            { step: "01", title: "Upload Resume",     desc: "PDF or DOCX — AI extracts skills, projects & experience" },
+            { step: "02", title: "Choose Interview",  desc: "Select role, type, difficulty & target company" },
+            { step: "03", title: "AI Generates Q&A", desc: "Gemini creates 10 personalized questions based on YOUR resume" },
+            { step: "04", title: "Get Your Report",  desc: "Detailed scores, feedback, strengths & improvement plan" },
           ].map(({ step, title, desc }) => (
             <div key={step} className="relative">
               <div className="w-14 h-14 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl flex items-center justify-center text-xl font-extrabold mx-auto mb-4 shadow-lg shadow-violet-500/30">
@@ -401,6 +355,7 @@ const Home = () => (
         </div>
       </div>
     </footer>
+
   </div>
 );
 
