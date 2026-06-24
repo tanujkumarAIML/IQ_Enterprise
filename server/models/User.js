@@ -51,6 +51,11 @@ const userSchema = new mongoose.Schema(
       },
     },
 
+    firebaseUID: {
+      type: String,
+      default: "",
+    },
+
     phone: {
       type: String,
       default: "",
@@ -120,6 +125,11 @@ const userSchema = new mongoose.Schema(
         url: String,
       },
     ],
+
+    firebaseUID: {
+      type: String,
+      default: "",
+    },
 
     isEmailVerified: {
       type: Boolean,

@@ -6,6 +6,7 @@ const { sendOTPEmail, sendPasswordResetEmail, sendWelcomeEmail } = require("../s
 const logger = require("../utils/logger");
 
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
+const admin = require("../config/firebase");
 
 const sendTokenResponse = (user, code, res, message = "Success") => {
   const accessToken  = generateAccessToken(user._id);
@@ -179,5 +180,89 @@ exports.resetPassword = async (req, res) => {
     sendTokenResponse(user, 200, res, "Password reset successful.");
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+exports.googleLogin = async (req, res) => {
+  try {
+    const { idToken } = req.body;
+
+    if (!idToken) {
+      return res.status(400).json({
+        success: false,
+        message: "Firebase Token Missing",
+      });
+    }
+
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+
+    const {
+      uid,
+      email,
+      name,
+      picture,
+    } = decodedToken;
+
+    const userEmail = email.toLowerCase();
+    let user = await User.findOne({
+
+    email: userEmail,
+});
+
+    if (!user) {
+      user = await User.create({
+        name,
+        email: userEmail,
+
+        avatar: {
+          publicId: "",
+          url: picture || "",
+        },
+
+        firebaseUID: uid,
+
+        password: Math.random().toString(36).slice(-12),
+
+        isEmailVerified: true,
+      });
+    }
+
+    if (user && !user.firebaseUID) {
+  user.firebaseUID = uid;
+  user.isEmailVerified = true;
+
+  if (!user.avatar?.url && picture) {
+    user.avatar = {
+      publicId: "",
+      url: picture,
+    };
+  }
+
+  await user.save({ validateBeforeSave: false });
+}
+
+if (!user.isActive) {
+  return res.status(401).json({
+    success: false,
+    message: "Account has been disabled.",
+  });
+}
+
+    sendTokenResponse(
+      user,
+      200,
+      res,
+      "Google Login Successful"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(401).json({
+      success: false,
+      message: "Google Authentication Failed",
+    });
+
   }
 };
