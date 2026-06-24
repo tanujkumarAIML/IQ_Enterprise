@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import {
   RiBrainLine, RiVideoLine, RiFileTextLine, RiRobot2Line,
-  RiArrowRightLine, RiStarFill, RiQuoteLeftLine,
+  RiArrowRightLine, RiStarFill, 
   RiCodeLine, RiBarChartLine, RiShieldLine, RiPlayCircleLine,
 } from "react-icons/ri";
 
@@ -512,7 +512,8 @@ const Home = () => {
               className="group relative bg-white/[0.03] border border-white/[0.07] rounded-2xl p-7 hover:border-white/[0.14] hover:bg-white/[0.05] transition-all duration-500 hover:shadow-2xl hover:shadow-violet-500/[0.06]"
             >
               {/* Quote icon */}
-              <RiQuoteLeftLine className="text-violet-500/20 text-3xl mb-4 group-hover:text-violet-500/40 transition-colors" />
+               <span className="text-violet-500/20 text-5xl font-serif mb-4 group-hover:text-violet-500/40 transition-colors">&ldquo;
+               </span>
 
               {/* Stars */}
               <div className="flex gap-0.5 mb-4">
