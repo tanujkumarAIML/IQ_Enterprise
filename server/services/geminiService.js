@@ -25,40 +25,42 @@ const generateText = async (prompt, modelName = MODEL) => {
     });
 
     const content = response?.choices?.[0]?.message?.content;
+
     if (!content) return "";
+
     if (typeof content === "string") {
       return content;
-}
+    }
 
-if (Array.isArray(content)) {
-  return content
-    .map((part) => {
-      if (typeof part === "string") return part;
-      if (part.type === "text") return part.text || "";
-      if (part.text) return part.text;
-      if (part.content) return part.content;
-      return "";
-    })
-    .join("");
-}
+    if (Array.isArray(content)) {
+      return content
+        .map((part) => {
+          if (typeof part === "string") return part;
+          if (part.type === "text") return part.text || "";
+          if (part.text) return part.text;
+          if (part.content) return part.content;
+          return "";
+        })
+        .join("");
+    }
 
-if (typeof content === "object") {
-  return content.text || JSON.stringify(content);
-}
+    if (typeof content === "object") {
+      return content.text || JSON.stringify(content);
+    }
 
-return String(content);
+    return String(content);
+  };   // ✅ Ye line missing thi
 
   try {
     return await attempt();
   } catch (err) {
     logger.error("OpenRouter Error (attempt 1):", err.message);
+
     try {
-      return await attempt(); // retry once
+      return await attempt();
     } catch (err2) {
       logger.error("OpenRouter Error (attempt 2):", err2.message);
-      throw new Error(
-        "InterviewIQ AI is temporarily unavailable. Please try again."
-      );
+      throw new Error("InterviewIQ AI is temporarily unavailable. Please try again.");
     }
   }
 };
@@ -110,8 +112,7 @@ const generateResumeAwareQuestions = async ({
   const skillList    = skills.slice(0, 15).join(", ");
   const resumeSnip   = resumeText ? resumeText.slice(0, 1800) : "";
 
-  const prompt = `
-You are a Senior Software Engineering Interviewer from Google with over 15 years of experience conducting interviews for Google, Amazon, Microsoft, Meta, Apple, and other top technology companies. Your job is to conduct a REALISTIC interview exactly like a human interviewer.
+  const prompt = ` You are a Senior Software Engineering Interviewer from Google with over 15 years of experience conducting interviews for Google, Amazon, Microsoft, Meta, Apple, and other top technology companies. Your job is to conduct a REALISTIC interview exactly like a human interviewer.
 
 ══════════════════════════════════════
 CANDIDATE PROFILE
@@ -896,6 +897,5 @@ module.exports = {
   generateCoverLetter,
   chatWithAI,
   generateInterviewReport,
-  // Legacy alias
   generateInterviewQuestions: generateResumeAwareQuestions,
 };
