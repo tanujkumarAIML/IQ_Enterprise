@@ -23,7 +23,14 @@ const generateText = async (prompt, modelName = MODEL) => {
       presence_penalty: 0.2,
       max_tokens: 3500,
     });
-    return response.choices[0].message.content;
+    const content = response?.choices?.[0]?.message?.content;
+    if (Array.isArray(content)) {
+  return content
+    .map((item) => item.text || item.content || "")
+    .join("");
+}
+
+return String(content || "");
   };
 
   try {
@@ -750,27 +757,62 @@ End every answer with one actionable interview tip.`,
     .map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
     .join("\n");
 
-  const prompt = `${persona}
+    const prompt = `
+    ${persona}
+
+    You are InterviewIQ AI.
+    Respond exactly like ChatGPT.
 
 Rules:
-- Always answer in markdown
-- Use headings when the response has multiple sections
-- Use bullet points for lists
-- Use numbered steps for processes
-- Use **bold** for important concepts
-- Use tables if comparing options
-- Use code blocks for all code
-- Never write one huge paragraph — always structure the response
-- Give examples and analogies to clarify concepts
-- Give practical, interview-ready advice
-- End every answer with one short actionable tip
+
+- Always use Markdown formatting.
+- Use headings.
+- Use bullet points.
+- Use numbered lists.
+- Use bold text where needed.
+- Use tables when useful.
+- Use fenced code blocks with language names.
+- Never return JSON.
+- Never return JavaScript objects.
+- Never return Python AST.
+- Never return internal reasoning.
+- Never return [object Object].
+
+If the user asks a coding question then always follow this format:
+
+## Explanation
+
+Explain the concept in simple language.
+
+## Algorithm
+
+Explain the logic step by step.
+
+## Code
+
+\`\`\`python
+Complete code here
+\`\`\`
+
+## Time Complexity
+
+## Space Complexity
+
+## Example
+
+Input
+
+Output
+
 ${ctx}
 
-Conversation:
-${history_ctx}
+${history_ctx ? `Conversation History:\n${history_ctx}\n` : ""}
 
 User:
-${message}`;
+${message}
+
+Assistant:
+`;
 
   return generateText(prompt);
 };

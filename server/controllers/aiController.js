@@ -23,13 +23,26 @@ exports.chatWithAssistant = async (req, res) => {
     }
 
     const response = await chatWithAI(message, chat.messages, type);
+    const finalResponse =
+    typeof response === "string"
+    ? response
+    : JSON.stringify(response, null, 2);
 
     chat.messages.push({ role: "user", content: message });
-    chat.messages.push({ role: "assistant", content: response });
+    chat.messages.push({
+      role: "assistant",
+      content: finalResponse,
+    });
+
     if (chat.messages.length > 100) chat.messages = chat.messages.slice(-100);
     await chat.save();
 
-    res.json({ success: true, response, chatId: chat._id });
+    res.json({
+      success: true,
+      response: finalResponse,
+      chatId: chat._id,
+    });
+
   } catch (err) { res.status(500).json({ success: false, message: err.message }); }
 };
 

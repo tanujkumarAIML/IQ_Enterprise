@@ -220,11 +220,17 @@ const Chatbot = () => {
         chatId: activeChat?._id,
         type: chatType,
       });
+
+      const assistantMessage =
+      typeof data.response === "string"
+      ? data.response
+      : JSON.stringify(data.response, null, 2);
+
       if (!activeChat) {
         const { data: chatData } = await api.get(`/chatbot/${data.chatId}`);
         dispatch(setActiveChat(chatData.chat));
       } else {
-        dispatch(addMessage({ role: "assistant", content: data.response, timestamp: new Date() }));
+        dispatch(addMessage({ role: "assistant", content: assistantMessage, timestamp: new Date() }));
       }
       api.get("/chatbot/history")
         .then(({ data: h }) => dispatch(setChatHistory(h.chats || [])))
