@@ -227,7 +227,32 @@ switchTab(TABS.OTP);
                   <button
                   type="button"
                   onClick={googleLogin}
-                  className="mt-3 w-full flex items-center justify-center gap-3 rounded-2xl border border-slate-300 bg-white px-4 py-3 font-semibold text-slate-700 shadow-sm transition-all duration-300 hover:bg-slate-50 hover:shadow-md active:scale-[0.98]"
+                  className="
+                  mt-3
+                  w-full
+                  flex
+                  items-center
+                  justify-center
+                  gap-3
+                  rounded-2xl
+                  border
+                  border-slate-300
+                  dark:border-slate-700
+                  bg-white
+                  dark:bg-slate-800
+                  px-4
+                  py-3
+                  font-semibold
+                  text-slate-700
+                  dark:text-white
+                  shadow-sm
+                  hover:bg-slate-50
+                  dark:hover:bg-slate-700
+                  hover:shadow-md
+                  transition-all
+                  duration-300
+                  active:scale-[0.98]
+                  "
                   >
                     <FcGoogle className="text-2xl" />
                     <span>Continue with Google</span>
