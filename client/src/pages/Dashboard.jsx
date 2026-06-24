@@ -5,11 +5,20 @@ import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   PieChart, Pie, Cell, BarChart, Bar,
 } from "recharts";
+
 import {
-  RiVideoLine, RiFileTextLine, RiTrophyLine, RiTimeLine,
-  RiArrowRightLine, RiAddLine, RiCheckboxCircleLine,
-  RiSparklingLine, RiRobot2Line, RiBrainLine,
+  RiBrainLine,
+  RiVideoLine,
+  RiFileTextLine,
+  RiRobot2Line,
+  RiArrowRightLine,
+  RiStarFill,
+  RiCodeLine,
+  RiBarChartLine,
+  RiShieldLine,
+  RiPlayCircleLine,
 } from "react-icons/ri";
+
 import toast from "react-hot-toast";
 
 import DashboardLayout from "../components/Layout/DashboardLayout";
