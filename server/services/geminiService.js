@@ -23,15 +23,30 @@ const generateText = async (prompt, modelName = MODEL) => {
       presence_penalty: 0.2,
       max_tokens: 3500,
     });
+
     const content = response?.choices?.[0]?.message?.content;
-    if (Array.isArray(content)) {
+    if (!content) return "";
+    if (typeof content === "string") {
+      return content;
+}
+
+if (Array.isArray(content)) {
   return content
-    .map((item) => item.text || item.content || "")
+    .map((part) => {
+      if (typeof part === "string") return part;
+      if (part.type === "text") return part.text || "";
+      if (part.text) return part.text;
+      if (part.content) return part.content;
+      return "";
+    })
     .join("");
 }
 
-return String(content || "");
-  };
+if (typeof content === "object") {
+  return content.text || JSON.stringify(content);
+}
+
+return String(content);
 
   try {
     return await attempt();
