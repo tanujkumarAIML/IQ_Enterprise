@@ -5,11 +5,11 @@ const Loader = ({ fullScreen = false, size = "md", text = "" }) => {
   const spinner = (
     <div className="flex flex-col items-center gap-3">
       <div className={`${ring} border-violet-500 border-t-transparent rounded-full animate-spin`} />
-      {text && <p className="text-sm text-slate-500">{text}</p>}
+      {text && <p className="text-sm text-slate-500 dark:text-slate-300">{text}</p>}
     </div>
   );
   if (fullScreen) return (
-    <div className="fixed inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-50">{spinner}</div>
+    <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-slate-950/80 backdrop-blur-sm z-50">{spinner}</div>
   );
   return <div className="flex items-center justify-center p-8">{spinner}</div>;
 };

@@ -1,13 +1,26 @@
 import React from "react";
 
 const VARIANTS = {
-  primary:   "bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-700 hover:to-indigo-700 shadow-md shadow-violet-200/60",
-  secondary: "bg-slate-100 text-slate-700 hover:bg-slate-200",
-  danger:    "bg-red-500 text-white hover:bg-red-600 shadow-sm",
-  ghost:     "bg-transparent text-slate-600 hover:bg-slate-100",
-  outline:   "border-2 border-violet-600 text-violet-600 hover:bg-violet-50",
-  success:   "bg-green-500 text-white hover:bg-green-600 shadow-sm",
-  dark:      "bg-slate-800 text-white hover:bg-slate-700",
+  primary:
+    "bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-700 hover:to-indigo-700 shadow-md shadow-violet-300",
+
+  secondary:
+    "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700",
+
+  danger:
+    "bg-red-500 text-white hover:bg-red-600",
+
+  ghost:
+    "bg-transparent text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800",
+
+  outline:
+    "border-2 border-violet-600 text-violet-600 dark:text-violet-400 hover:bg-violet-50 dark:hover:bg-slate-800",
+
+  success:
+    "bg-green-500 text-white hover:bg-green-600",
+
+  dark:
+    "bg-slate-800 dark:bg-slate-700 text-white hover:bg-slate-700 dark:hover:bg-slate-600",
 };
 
 const SIZES = {

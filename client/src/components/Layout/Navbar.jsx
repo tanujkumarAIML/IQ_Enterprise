@@ -1,70 +1,91 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth }  from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 import {
-  RiMenuLine, RiSunLine, RiMoonLine,
-  RiBellLine, RiUserLine, RiSearchLine,
+  RiMenuLine,
+  RiSunLine,
+  RiMoonLine,
+  RiBellLine,
+  RiUserLine,
 } from "react-icons/ri";
 
 const Navbar = ({ onMenuClick, title }) => {
-  const { user }                 = useAuth();
-  const { dark, toggleTheme }    = useTheme();
-  const [showSearch, setShowSearch] = useState(false);
+  const { user } = useAuth();
+  const { dark, toggleTheme } = useTheme();
 
   return (
-    <header className="flex items-center justify-between px-4 md:px-6 h-16 bg-white border-b border-slate-100 shrink-0 z-10">
+    <header className="h-16 px-4 md:px-6 flex items-center justify-between bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+      
       {/* Left */}
       <div className="flex items-center gap-3">
         <button
           onClick={onMenuClick}
-          className="lg:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition"
-          aria-label="Toggle sidebar"
+          className="lg:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
         >
-          <RiMenuLine className="text-xl" />
+          <RiMenuLine className="text-2xl" />
         </button>
+
         {title && (
-          <h1 className="text-lg font-semibold text-slate-800 hidden sm:block">
+          <h1 className="hidden sm:block text-xl font-bold text-slate-800 dark:text-white">
             {title}
           </h1>
         )}
       </div>
 
       {/* Right */}
-      <div className="flex items-center gap-1 sm:gap-2">
-        {/* Theme toggle */}
+      <div className="flex items-center gap-2">
+
+        {/* Theme Button */}
         <button
           onClick={toggleTheme}
-          className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition"
-          title={dark ? "Light mode" : "Dark mode"}
+          className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+          title={dark ? "Light Mode" : "Dark Mode"}
         >
-          {dark ? <RiSunLine className="text-xl" /> : <RiMoonLine className="text-xl" />}
+          {dark ? (
+            <RiSunLine className="text-xl text-yellow-400" />
+          ) : (
+            <RiMoonLine className="text-xl" />
+          )}
         </button>
 
-        {/* Notifications */}
-        <button className="relative p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition">
+        {/* Notification */}
+        <button className="relative p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
           <RiBellLine className="text-xl" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-violet-500 rounded-full" />
+
+          <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-violet-500"></span>
         </button>
 
-        {/* User Avatar */}
-        <Link to="/profile" className="flex items-center gap-2 ml-1 group">
+        {/* User */}
+        <Link
+          to="/profile"
+          className="flex items-center gap-3 ml-2"
+        >
           {user?.avatar?.url ? (
             <img
               src={user.avatar.url}
               alt={user.name}
-              className="w-8 h-8 rounded-full object-cover ring-2 ring-violet-200 group-hover:ring-violet-400 transition"
+              className="w-10 h-10 rounded-full object-cover ring-2 ring-violet-300"
             />
           ) : (
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center text-white text-xs font-bold ring-2 ring-violet-200 group-hover:ring-violet-400 transition">
-              {user?.name?.[0]?.toUpperCase() || <RiUserLine />}
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white font-bold ring-2 ring-violet-300">
+              {user?.name?.charAt(0)?.toUpperCase() || (
+                <RiUserLine />
+              )}
             </div>
           )}
-          <div className="hidden sm:block text-left">
-            <p className="text-xs font-semibold text-slate-700 leading-none">{user?.name?.split(" ")[0]}</p>
-            <p className="text-xs text-slate-400 capitalize leading-none mt-0.5">{user?.plan}</p>
+
+          <div className="hidden md:block">
+            <p className="text-sm font-semibold text-slate-800 dark:text-white leading-none">
+              {user?.name}
+            </p>
+
+            <p className="text-xs text-slate-500 dark:text-slate-400 capitalize mt-1">
+              {user?.plan} Plan
+            </p>
           </div>
         </Link>
+
       </div>
     </header>
   );

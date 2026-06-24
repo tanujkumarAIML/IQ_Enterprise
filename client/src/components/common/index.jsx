@@ -4,7 +4,7 @@ import React from "react";
 export const Input = React.forwardRef(
   ({ label, error, icon, className = "", ...props }, ref) => (
     <div className="flex flex-col gap-1.5">
-      {label && <label className="text-sm font-medium text-slate-700">{label}</label>}
+      {label && <label className="text-sm font-medium text-slate-700 dark:text-slate-200">{label}</label>}
       <div className="relative">
         {icon && (
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
@@ -13,9 +13,18 @@ export const Input = React.forwardRef(
         )}
         <input
           ref={ref}
-          className={`w-full rounded-xl border px-4 py-2.5 text-sm text-slate-800 bg-white outline-none
-            transition focus:ring-2 focus:ring-violet-400 focus:border-violet-400
-            border-slate-200 placeholder:text-slate-400
+          className={`w-full rounded-xl border
+            px-4 py-2.5
+            text-sm
+            text-slate-800 dark:text-white
+            bg-white dark:bg-slate-900
+            outline-none
+            transition
+            focus:ring-2
+            focus:ring-violet-400
+            focus:border-violet-400
+            border-slate-200 dark:border-slate-700
+            placeholder:text-slate-400 dark:placeholder:text-slate-500
             ${icon ? "pl-10" : ""}
             ${error ? "border-red-400 focus:ring-red-300" : ""}
             ${className}`}
@@ -36,8 +45,17 @@ export const Textarea = React.forwardRef(
       <textarea
         ref={ref}
         rows={rows}
-        className={`w-full resize-none rounded-xl border px-4 py-3 text-sm text-slate-800 bg-white outline-none
-          transition focus:ring-2 focus:ring-violet-400 border-slate-200 placeholder:text-slate-400
+         className={`w-full resize-none rounded-xl border
+          px-4 py-3
+          text-sm
+          text-slate-800 dark:text-white
+          bg-white dark:bg-slate-900
+          outline-none
+          transition
+          focus:ring-2
+          focus:ring-violet-400
+          border-slate-200 dark:border-slate-700
+          placeholder:text-slate-400 dark:placeholder:text-slate-500
           ${error ? "border-red-400" : ""}
           ${className}`}
         {...props}
@@ -50,7 +68,7 @@ Textarea.displayName = "Textarea";
 
 // ── Card ──────────────────────────────────────────────────────
 export const Card = ({ children, className = "", ...props }) => (
-  <div className={`bg-white rounded-2xl border border-slate-100 shadow-sm ${className}`} {...props}>
+  <div className={`bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm ${className}`} {...props}>
     {children}
   </div>
 );
@@ -78,12 +96,12 @@ export const Loader = ({ fullScreen = false, size = "md", text = "" }) => {
   const spinner = (
     <div className="flex flex-col items-center gap-3">
       <div className={`${ring} border-violet-500 border-t-transparent rounded-full animate-spin`} />
-      {text && <p className="text-sm text-slate-500">{text}</p>}
+      {text && <p className="text-sm text-slate-500 dark:text-slate-300">{text}</p>}
     </div>
   );
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-slate-950/80 backdrop-blur-sm z-50">
         {spinner}
       </div>
     );
@@ -94,9 +112,9 @@ export const Loader = ({ fullScreen = false, size = "md", text = "" }) => {
 // ── Empty State ───────────────────────────────────────────────
 export const EmptyState = ({ icon: Icon, title, description, action }) => (
   <div className="flex flex-col items-center justify-center py-16 text-center">
-    {Icon && <Icon className="text-6xl text-slate-300 mb-4" />}
-    <h3 className="font-semibold text-slate-600 mb-2">{title}</h3>
-    {description && <p className="text-sm text-slate-400 mb-5 max-w-sm">{description}</p>}
+    {Icon && <Icon className="text-6xl text-slate-300 dark:text-slate-700 mb-4" />}
+    <h3 className="font-semibold text-slate-600 dark:text-white mb-2">{title}</h3>
+    {description && <p className="text-sm text-slate-400 dark:text-slate-400 mb-5 max-w-sm">{description}</p>}
     {action}
   </div>
 );
@@ -105,10 +123,10 @@ export const EmptyState = ({ icon: Icon, title, description, action }) => (
 export const Divider = ({ text }) =>
   text ? (
     <div className="flex items-center gap-3">
-      <div className="flex-1 h-px bg-slate-200" />
+      <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
       <span className="text-xs text-slate-400 font-medium">{text}</span>
-      <div className="flex-1 h-px bg-slate-200" />
+      <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
     </div>
-  ) : <div className="h-px bg-slate-200 w-full" />;
+  ) : <div className="h-px bg-slate-200 dark:bg-slate-700 w-full" />;
 
 export default Loader;
