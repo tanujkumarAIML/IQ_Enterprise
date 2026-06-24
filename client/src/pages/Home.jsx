@@ -80,7 +80,102 @@ const STATS = [
   { value: "4.9★", label: "User Rating" },
 ];
 
-const COMPANIES = ["Google", "Amazon", "Microsoft", "Meta", "Apple", "Netflix", "Adobe", "Uber", "Infosys", "TCS"];
+const COMPANIES = [
+  {
+    name: "Google",
+    logo: "https://cdn.simpleicons.org/google",
+  },
+  {
+    name: "Amazon",
+    logo: "https://cdn.simpleicons.org/amazon",
+  },
+  {
+    name: "Microsoft",
+    logo: "https://cdn.simpleicons.org/microsoft",
+  },
+  {
+    name: "Meta",
+    logo: "https://cdn.simpleicons.org/meta",
+  },
+  {
+    name: "Apple",
+    logo: "https://cdn.simpleicons.org/apple",
+  },
+  {
+    name: "Netflix",
+    logo: "https://cdn.simpleicons.org/netflix",
+  },
+  {
+    name: "Adobe",
+    logo: "https://cdn.simpleicons.org/adobe",
+  },
+  {
+    name: "Uber",
+    logo: "https://cdn.simpleicons.org/uber",
+  },
+  {
+    name: "Infosys",
+    logo: "https://cdn.simpleicons.org/infosys",
+  },
+  {
+    name: "TCS",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Tata_Consultancy_Services_Logo.svg",
+  },
+];
+
+
+{/* ── Company Logos ── */}
+<section className="py-10 border-y border-white/10 overflow-hidden">
+
+<p className="text-center text-xs uppercase tracking-[0.3em] text-slate-500 mb-8 font-semibold">
+Candidates Placed At
+</p>
+
+<div className="overflow-hidden">
+
+<div className="flex animate-marquee gap-8 w-max">
+
+{[...COMPANIES,...COMPANIES].map((company,index)=>(
+
+<div
+key={index}
+className="
+flex
+items-center
+gap-3
+min-w-[190px]
+bg-white/5
+border
+border-white/10
+rounded-2xl
+px-6
+py-4
+hover:bg-white/10
+hover:scale-105
+transition-all
+duration-300
+"
+>
+
+<img
+src={company.logo}
+alt={company.name}
+className="w-8 h-8 object-contain grayscale hover:grayscale-0 transition"
+/>
+
+<span className="font-semibold text-white">
+{company.name}
+</span>
+
+</div>
+
+))}
+
+</div>
+
+</div>
+
+</section>
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },

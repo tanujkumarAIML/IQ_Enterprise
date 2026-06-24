@@ -64,3 +64,30 @@ html.dark body{
 .wave-bar:nth-child(3) { animation-delay: 0.2s; }
 .wave-bar:nth-child(4) { animation-delay: 0.3s; }
 .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+
+
+@keyframes marquee {
+
+0%{
+transform:translateX(0);
+}
+
+100%{
+transform:translateX(-50%);
+}
+
+}
+
+.animate-marquee{
+
+display:flex;
+
+animation:marquee 30s linear infinite;
+
+}
+
+.animate-marquee:hover{
+
+animation-play-state:paused;
+
+}
