@@ -49,16 +49,26 @@ app.use("/api/auth/login",    authLimiter);
 app.use("/api/auth/register", authLimiter);
 
 // ── CORS ───────────────────────────────────────────────────
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://interviewiq-bamm.onrender.com",
-  ],
-  credentials: true,
-  methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization"],
-}));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  process.env.CLIENT_URL,
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
 
 // ── Body Parsers ───────────────────────────────────────────
 app.use(express.json({ limit: "15mb" }));
