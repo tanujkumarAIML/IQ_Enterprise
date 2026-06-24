@@ -84,3 +84,5 @@ htmlcov/
 .cache/
 *.tmp
 *.bak
+
+server/config/firebase-service-account.json

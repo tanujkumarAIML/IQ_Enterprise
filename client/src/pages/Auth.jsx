@@ -1,3 +1,9 @@
+import { auth } from "../firebase";
+
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useForm }  from "react-hook-form";
@@ -45,12 +51,34 @@ const Auth = () => {
     setLoading(true);
     try {
       await login(email, password);
-      toast.success("Welcome back! 🎉");
+      toast.success("Welcome Back! 🎉");
       navigate("/dashboard");
     } catch (e) {
       toast.error(e.message || "Login failed. Check your credentials.");
     } finally { setLoading(false); }
   };
+  const googleLogin = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+    const idToken = await result.user.getIdToken();
+    const response = await api.post("/auth/google-login", {
+      idToken,
+});
+
+localStorage.setItem(
+  "token",
+  response.data.token
+);
+toast.success("Google Login Successful");
+navigate("/dashboard");
+
+  } catch (error) {
+    console.error(error);
+
+    toast.error(error.message);
+  }
+};
 
   /* ── Register ── */
   const onRegister = async ({ name, email, password }) => {
@@ -59,7 +87,8 @@ const Auth = () => {
       await authRegister(name, email, password);
       setPendingEmail(email);
       toast.success("Account created! Check your email for OTP.");
-      switchTab(TABS.OTP);
+
+switchTab(TABS.OTP);
     } catch (e) {
       toast.error(e.message || "Registration failed.");
     } finally { setLoading(false); }
@@ -194,6 +223,15 @@ const Auth = () => {
                   <Button type="submit" fullWidth loading={loading} size="lg">
                     Sign In
                   </Button>
+                  <Button
+                  type="button"
+                  fullWidth
+                  variant="secondary"
+                  onClick={googleLogin}
+                  className="mt-3"
+                  >
+                    Continue with Google
+                    </Button>
                 </form>
 
                 <p className="text-center text-sm text-slate-500 mt-6">
@@ -203,13 +241,6 @@ const Auth = () => {
                     Create one free
                   </button>
                 </p>
-
-                {/* Demo credentials */}
-                <div className="mt-6 p-3 bg-violet-50 border border-violet-100 rounded-xl text-xs text-violet-600 text-center">
-                  <p className="font-semibold mb-1">🧪 Demo Credentials</p>
-                  <p>User: john@example.com / Test@123</p>
-                  <p>Admin: admin@interviewiq.ai / Admin@123</p>
-                </div>
               </motion.div>
             )}
 
