@@ -13,6 +13,7 @@ import { useAuth } from "../context/AuthContext";
 import api         from "../services/api";
 import Button      from "../components/common/Button";
 import { Input }   from "../components/common/index.jsx";
+import { FcGoogle } from "react-icons/fc";
 import {
   RiBrainLine, RiMailLine, RiLockLine, RiUserLine,
   RiEyeLine, RiEyeOffLine, RiArrowLeftLine, RiCheckLine,
@@ -223,15 +224,14 @@ switchTab(TABS.OTP);
                   <Button type="submit" fullWidth loading={loading} size="lg">
                     Sign In
                   </Button>
-                  <Button
+                  <button
                   type="button"
-                  fullWidth
-                  variant="secondary"
                   onClick={googleLogin}
-                  className="mt-3"
+                  className="mt-3 w-full flex items-center justify-center gap-3 rounded-2xl border border-slate-300 bg-white px-4 py-3 font-semibold text-slate-700 shadow-sm transition-all duration-300 hover:bg-slate-50 hover:shadow-md active:scale-[0.98]"
                   >
-                    Continue with Google
-                    </Button>
+                    <FcGoogle className="text-2xl" />
+                    <span>Continue with Google</span>
+                    </button>
                 </form>
 
                 <p className="text-center text-sm text-slate-500 mt-6">
