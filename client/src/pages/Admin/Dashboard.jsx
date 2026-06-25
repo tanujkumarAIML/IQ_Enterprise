@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LineChart, Line } from "recharts";
-import { RiUserLine, RiVideoLine, RiFileTextLine, RiTrophyLine } from "react-icons/ri";
+import { RiUserLine, RiVideoLine, RiFileTextLine, RiStarFill } from "react-icons/ri";
 import toast from "react-hot-toast";
 import api from "../../services/api";
 import { Card, Loader } from "../../components/common/index.jsx";
@@ -40,7 +40,7 @@ const AdminDashboard = () => {
         <StatBox label="Total Users"      value={data?.stats?.totalUsers || 0}      icon={RiUserLine}    color="violet" />
         <StatBox label="Total Interviews" value={data?.stats?.totalInterviews || 0} icon={RiVideoLine}   color="blue"   />
         <StatBox label="Total Resumes"    value={data?.stats?.totalResumes || 0}    icon={RiFileTextLine} color="green"  />
-        <StatBox label="Completed"        value={data?.stats?.completedInterviews || 0} icon={RiTrophyLine} color="orange" />
+        <StatBox label="Completed"        value={data?.stats?.completedInterviews || 0} icon={RiStarFill} color="orange" />
       </div>
 
       {/* Charts */}
