@@ -83,10 +83,11 @@ const Dashboard = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
         <StatCard title="Total Interviews"   value={stats.totalInterviews || 0}     icon={<RiVideoLine />}           color="violet" />
         <StatCard title="Completed"          value={stats.completedInterviews || 0} icon={<RiCheckboxCircleLine />}  color="green"  />
-         <StatCard
-         title="Average Score"
-         value={`${stats.avgScore || 0}%`}
-         icon={ RiAwardLine }
+        <StatCard
+  title="Average Score"
+  value={`${stats.avgScore || 0}%`}
+  icon={RiAwardLine}
+  color="yellow"
 />
         <StatCard title="Best Score"         value={`${stats.bestScore || 0}%`}     icon={<RiTimeLine />}            color="orange" />
       </div>
@@ -124,7 +125,7 @@ const Dashboard = () => {
     fill: "#94a3b8",
   }}
 />
-                <YAxis domain={[0, 100]} tick={{ fontSize: 10 }} />
+                
                 <Tooltip
                   formatter={(v) => [`${v}%`, "Score"]}
                   labelFormatter={fmtDate}
