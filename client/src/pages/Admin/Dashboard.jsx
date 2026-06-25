@@ -4,7 +4,7 @@ import { RiUserLine, RiVideoLine, RiFileTextLine, RiStarFill } from "react-icons
 import toast from "react-hot-toast";
 import api from "../../services/api";
 import { Card, Loader } from "../../components/common/index.jsx";
-
+import { RiStarFill } from "react-icons/ri";
 const COLORS = ["#7c3aed","#4f46e5","#0ea5e9","#16a34a","#d97706"];
 
 const StatBox = ({ label, value, icon: Icon, color }) => {
