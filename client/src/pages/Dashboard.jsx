@@ -46,7 +46,7 @@ const useTypingEffect = (text, speed = 30, startDelay = 0) => {
       };
       tick();
     }, startDelay);
-    return () => clearTimeout(start) && clearTimeout(timeout);
+    return () => { clearTimeout(start); clearTimeout(timeout); };
   }, [text, speed, startDelay]);
   return { displayed, isDone };
 };
@@ -266,18 +266,29 @@ const Navbar = () => {
   );
 };
 
-// --- HERO ---
+// --- HERO WITH BACKGROUND IMAGE ---
 const HeroSection = () => {
   const ref = useRef(null);
   const mouse = useMouseSpotlight(ref);
   return (
-    <section ref={ref} className="relative overflow-hidden pt-16 pb-24 px-6 bg-white">
-      <div className="absolute inset-0 dot-grid" />
-      <div className="absolute inset-0 pointer-events-none transition-all duration-300" style={{ background: `radial-gradient(700px circle at ${mouse.x}px ${mouse.y}px, rgba(124, 58, 237, 0.04), transparent 45%)` }} />
-      <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] bg-violet-200/30 rounded-full blur-[120px] animate-float-slow" />
-      <div className="absolute bottom-[5%] right-[10%] w-[400px] h-[400px] bg-cyan-200/20 rounded-full blur-[100px] animate-float-slower" />
+    <section ref={ref} className="relative overflow-hidden pt-16 pb-24 px-6">
       
-      <div className="relative max-w-4xl mx-auto text-center">
+      {/* ★ BACKGROUND IMAGE ★ */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1920&q=80')" }}
+      />
+      
+      {/* ★ WHITE GRADIENT OVERLAY (To keep text readable in Light Theme) ★ */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-white/85 to-slate-50/90 backdrop-blur-[2px]" />
+
+      {/* Existing Effects */}
+      <div className="absolute inset-0 dot-grid" />
+      <div className="absolute inset-0 pointer-events-none transition-all duration-300" style={{ background: `radial-gradient(700px circle at ${mouse.x}px ${mouse.y}px, rgba(124, 58, 237, 0.06), transparent 45%)` }} />
+      <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] bg-violet-200/40 rounded-full blur-[120px] animate-float-slow" />
+      <div className="absolute bottom-[5%] right-[10%] w-[400px] h-[400px] bg-cyan-200/30 rounded-full blur-[100px] animate-float-slower" />
+      
+      <div className="relative max-w-4xl mx-auto text-center z-10">
         <motion.div {...fadeUp(0)}>
           <div className="inline-flex items-center gap-2 text-xs font-semibold bg-violet-50 text-violet-700 border border-violet-200 px-5 py-2 rounded-full mb-8">
             <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" /><span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500" /></span>
@@ -289,16 +300,21 @@ const HeroSection = () => {
           <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-11 leading-relaxed">Upload your resume → AI generates personalized questions → Get real-time feedback → Land your dream job. Used by <span className="text-slate-900 font-semibold">50,000+</span> developers.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/auth" className="group flex items-center gap-2.5 bg-violet-600 hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-violet-200 hover:shadow-violet-300 transition-all duration-300 text-[15px] hover:-translate-y-0.5">Start for Free <RiArrowRightLine className="text-xl group-hover:translate-x-1 transition-transform" /></Link>
-            <Link to="/auth" className="group flex items-center gap-2.5 border border-slate-300 hover:bg-slate-50 hover:border-slate-400 text-slate-700 font-semibold px-8 py-4 rounded-2xl transition-all duration-300 text-[15px]"><RiPlayCircleLine className="text-xl text-violet-500" /> Watch Demo</Link>
+            <Link to="/auth" className="group flex items-center gap-2.5 border border-slate-300 hover:bg-white/50 hover:border-slate-400 text-slate-700 font-semibold px-8 py-4 rounded-2xl transition-all duration-300 text-[15px] backdrop-blur-sm"><RiPlayCircleLine className="text-xl text-violet-500" /> Watch Demo</Link>
           </div>
         </motion.div>
         
         <motion.div {...fadeUp(0.2)} className="mt-16 grid grid-cols-2 sm:grid-cols-4 max-w-2xl mx-auto gap-4">
-          {STATS.map(s => (<div key={s.label} className="bg-white border border-slate-200 rounded-2xl py-5 px-3 shadow-sm hover:shadow-md hover:border-violet-200 transition-all duration-300"><p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600"><CountUp {...s} /></p><p className="text-[11px] text-slate-400 mt-1.5 font-medium uppercase tracking-wider">{s.label}</p></div>))}
+          {STATS.map(s => (
+            <div key={s.label} className="bg-white/70 backdrop-blur-md border border-slate-200 rounded-2xl py-5 px-3 shadow-sm hover:shadow-md hover:border-violet-200 transition-all duration-300">
+              <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600"><CountUp {...s} /></p>
+              <p className="text-[11px] text-slate-400 mt-1.5 font-medium uppercase tracking-wider">{s.label}</p>
+            </div>
+          ))}
         </motion.div>
       </div>
 
-      <motion.div {...scaleIn} className="mt-20 px-4">
+      <motion.div {...scaleIn} className="mt-20 px-4 relative z-10">
         <DashboardMockup />
       </motion.div>
     </section>
@@ -354,14 +370,8 @@ const LiveDemoSection = () => {
   const { displayed: aiText, isDone } = useTypingEffect(CHAT_HISTORY[activeStep]?.text || "", 20, 500);
   
   useEffect(() => {
-    if (CHAT_HISTORY[activeStep]?.role === 'ai' && isDone) {
-      const t = setTimeout(() => setActiveStep(p => p + 1), 2000);
-      return () => clearTimeout(t);
-    }
-    if (CHAT_HISTORY[activeStep]?.role === 'user' && isDone) {
-      const t = setTimeout(() => setActiveStep(p => p + 1), 1500);
-      return () => clearTimeout(t);
-    }
+    if (CHAT_HISTORY[activeStep]?.role === 'ai' && isDone) { const t = setTimeout(() => setActiveStep(p => p + 1), 2000); return () => clearTimeout(t); }
+    if (CHAT_HISTORY[activeStep]?.role === 'user' && isDone) { const t = setTimeout(() => setActiveStep(p => p + 1), 1500); return () => clearTimeout(t); }
   }, [isDone, activeStep]);
 
   return (
