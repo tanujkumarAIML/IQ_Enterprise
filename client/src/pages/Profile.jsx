@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import {
   RiCameraLine, RiSaveLine, RiUserLine, RiLinkedinLine,
   RiGithubLine, RiGlobalLine, RiAddLine, RiCloseLine,
-  RiMedalLine, RiGraduationCapLine, RiTrophyLine,
+  RiMedalLine, RiGraduationCapLine,
 } from "react-icons/ri";
 import DashboardLayout from "../components/Layout/DashboardLayout";
 import Button          from "../components/common/Button";

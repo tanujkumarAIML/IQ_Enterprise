@@ -58,7 +58,7 @@ const AdminPanel = () => {
    ══════════════════════════════════════════════════════════════════════ */}
    
    import StatCard from "./StatCard";
-   import { RiUserLine, RiVideoLine, RiBarChartLine, RiTrophyLine } from "react-icons/ri";
+   import { RiUserLine, RiVideoLine, RiBarChartLine} from "react-icons/ri";
 
    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
      <StatCard 

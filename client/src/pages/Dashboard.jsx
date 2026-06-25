@@ -6,7 +6,7 @@ import {
   PieChart, Pie, Cell, BarChart, Bar,
 } from "recharts";
 import {
-  RiVideoLine, RiFileTextLine, RiTrophyLine, RiTimeLine,
+  RiVideoLine, RiFileTextLine,RiTimeLine,
   RiArrowRightLine, RiAddLine, RiCheckboxCircleLine,
   RiSparklingLine, RiRobot2Line, RiBrainLine,
 } from "react-icons/ri";
