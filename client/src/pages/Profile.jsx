@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import {
   RiCameraLine, RiSaveLine, RiUserLine, RiLinkedinLine,
   RiGithubLine, RiGlobalLine, RiAddLine, RiCloseLine,
-  RiStarFill, RiGraduationCapLine,  
+  RiAwardLine, RiGraduationCapLine,  
 } from "react-icons/ri";
 import DashboardLayout from "../components/Layout/DashboardLayout";
 import Button          from "../components/common/Button";
@@ -149,7 +149,7 @@ const Profile = () => {
 
           {/* Skills */}
           <Card className="p-6">
-            <h3 className="font-semibold text-slate-700 mb-4 flex items-center gap-2"><RiStarFill /> Skills</h3>
+            <h3 className="font-semibold text-slate-700 mb-4 flex items-center gap-2"><RiAwardLine /> Skills</h3>
             <div className="flex gap-2 mb-4">
               <input value={skillInput}
                 onChange={(e) => setSkillInput(e.target.value)}
@@ -179,7 +179,7 @@ const Profile = () => {
 
           {/* Stats */}
           <Card className="p-6">
-            <h3 className="font-semibold text-slate-700 mb-4 flex items-center gap-2"><RiStarFill /> Interview Statistics</h3>
+            <h3 className="font-semibold text-slate-700 mb-4 flex items-center gap-2"><RiAwardLine /> Interview Statistics</h3>
             <div className="grid grid-cols-3 gap-4">
               {[
                 { label: "Total Interviews",    value: user?.totalInterviews    || 0 },

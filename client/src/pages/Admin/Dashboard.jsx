@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LineChart, Line } from "recharts";
-import { RiUserLine, RiVideoLine, RiFileTextLine, RiStarFill } from "react-icons/ri";
+import { RiUserLine, RiVideoLine, RiFileTextLine, RiAwardLine } from "react-icons/ri";
 import toast from "react-hot-toast";
 import api from "../../services/api";
 import { Card, Loader } from "../../components/common/index.jsx";
-import { RiStarFill } from "react-icons/ri";
 const COLORS = ["#7c3aed","#4f46e5","#0ea5e9","#16a34a","#d97706"];
 
 const StatBox = ({ label, value, icon: Icon, color }) => {
@@ -40,7 +39,7 @@ const AdminDashboard = () => {
         <StatBox label="Total Users"      value={data?.stats?.totalUsers || 0}      icon={RiUserLine}    color="violet" />
         <StatBox label="Total Interviews" value={data?.stats?.totalInterviews || 0} icon={RiVideoLine}   color="blue"   />
         <StatBox label="Total Resumes"    value={data?.stats?.totalResumes || 0}    icon={RiFileTextLine} color="green"  />
-        <StatBox label="Completed"        value={data?.stats?.completedInterviews || 0} icon={RiStarFill} color="orange" />
+        <StatBox label="Completed"        value={data?.stats?.completedInterviews || 0} icon={RiAwardLine} color="orange" />
       </div>
 
       {/* Charts */}

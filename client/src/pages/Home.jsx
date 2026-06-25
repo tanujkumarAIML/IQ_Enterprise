@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   RiBrainLine, RiVideoLine, RiFileTextLine, RiRobot2Line,
-  RiArrowRightLine, RiStarFill, RiCheckLine,
+  RiArrowRightLine, RiAwardLine, RiCheckLine,
   RiCodeLine, RiBarChartLine, RiShieldLine,
 } from "react-icons/ri";
 
@@ -294,7 +294,7 @@ const Home = () => (
             className="bg-slate-800/60 border border-white/10 rounded-2xl p-6 hover:border-violet-500/30 transition">
             <div className="flex mb-3">
               {Array.from({ length: rating }).map((_, i) => (
-                <RiStarFill key={i} className="text-yellow-400 text-sm" />
+                <RiAwardLine key={i} className="text-yellow-400 text-sm" />
               ))}
             </div>
             <p className="text-sm text-slate-300 mb-5 leading-relaxed">"{text}"</p>

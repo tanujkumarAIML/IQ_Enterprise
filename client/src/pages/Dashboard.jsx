@@ -86,7 +86,7 @@ const Dashboard = () => {
          <StatCard
          title="Average Score"
          value={`${stats.avgScore || 0}%`}
-         icon={RiStarFill}
+         icon={ RiAwardLine }
 />
         <StatCard title="Best Score"         value={`${stats.bestScore || 0}%`}     icon={<RiTimeLine />}            color="orange" />
       </div>
