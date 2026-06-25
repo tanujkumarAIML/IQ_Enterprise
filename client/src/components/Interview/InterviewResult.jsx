@@ -4,7 +4,7 @@ import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { RiFileChartLine, RiVideoLine } from "react-icons/ri";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { <RiAwardLine /> } from "react-icons/ri";
+import { RiAwardLine } from "react-icons/ri";
 const scoreColor = (s) => s >= 80 ? "#16a34a" : s >= 60 ? "#d97706" : "#dc2626";
 
 const InterviewResult = ({ report, interviewId }) => {
