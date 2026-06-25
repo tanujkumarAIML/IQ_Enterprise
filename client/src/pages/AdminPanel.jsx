@@ -85,7 +85,7 @@ const AdminPanel = () => {
      <StatCard 
        title="Placements" 
        value="342" 
-       icon={RiTrophyLine} 
+       icon={RiAwardLine}
        trend={{ value: 24.0, isPositive: true }}
        iconBg="bg-emerald-100 text-emerald-600"
      />

@@ -4,7 +4,7 @@ import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { RiFileChartLine, RiVideoLine } from "react-icons/ri";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-
+import { RiAwardLine } from "react-icons/ri";
 const scoreColor = (s) => s >= 80 ? "#16a34a" : s >= 60 ? "#d97706" : "#dc2626";
 
 const InterviewResult = ({ report, interviewId }) => {
@@ -22,7 +22,7 @@ const InterviewResult = ({ report, interviewId }) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 space-y-6">
       <div className="text-center">
-        <RiTrophyLine className="text-5xl text-yellow-500 mx-auto mb-3" />
+        <RiMedalLine className="text-5xl text-yellow-500 mx-auto mb-3" />
         <h2 className="text-2xl font-bold text-slate-800">Interview Complete!</h2>
         <p className="text-slate-400 text-sm mt-1">Here's your AI-generated performance summary</p>
       </div>

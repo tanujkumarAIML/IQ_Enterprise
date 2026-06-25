@@ -5,8 +5,9 @@ import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   PieChart, Pie, Cell, BarChart, Bar,
 } from "recharts";
+import { RiAwardLine } from "react-icons/ri";
 import {
-  RiVideoLine, RiFileTextLine,RiTimeLine,
+  RiVideoLine, RiFileTextLine, RiTimeLine,
   RiArrowRightLine, RiAddLine, RiCheckboxCircleLine,
   RiSparklingLine, RiRobot2Line, RiBrainLine,
 } from "react-icons/ri";
@@ -82,7 +83,11 @@ const Dashboard = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
         <StatCard title="Total Interviews"   value={stats.totalInterviews || 0}     icon={<RiVideoLine />}           color="violet" />
         <StatCard title="Completed"          value={stats.completedInterviews || 0} icon={<RiCheckboxCircleLine />}  color="green"  />
-        <StatCard title="Average Score"      value={`${stats.avgScore || 0}%`}      icon={<RiTrophyLine />}          color="blue"   />
+         <StatCard
+         title="Average Score"
+         value={`${stats.avgScore || 0}%`}
+         icon={RiMedalLine}
+/>
         <StatCard title="Best Score"         value={`${stats.bestScore || 0}%`}     icon={<RiTimeLine />}            color="orange" />
       </div>
 
