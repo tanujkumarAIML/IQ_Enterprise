@@ -391,7 +391,7 @@ const LiveDemoSection = () => {
               <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                 <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs font-bold ${msg.role === 'ai' ? 'bg-violet-600' : 'bg-slate-700'}`}>{msg.role === 'ai' ? 'AI' : 'U'}</div>
                 <div className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'ai' ? 'bg-white border border-slate-200 text-slate-700 rounded-tl-none' : 'bg-violet-600 text-white rounded-tr-none'}`}>
-                  {i === activeStep ? displayed : msg.text}
+                  {i === activeStep ? aiText : msg.text}
                   {i === activeStep && !isDone && <span className="inline-block w-0.5 h-4 bg-current ml-0.5 animate-pulse" />}
                 </div>
               </div>
