@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LineChart, Line } from "recharts";
-import { RiUserLine, RiVideoLine, RiFileTextLine} from "react-icons/ri";
+import { RiUserLine, RiVideoLine, RiFileTextLine, RiTrophyLine } from "react-icons/ri";
 import toast from "react-hot-toast";
 import api from "../../services/api";
 import { Card, Loader } from "../../components/common/index.jsx";
