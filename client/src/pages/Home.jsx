@@ -10,6 +10,9 @@ import {
   RiBookmarkLine, RiSendPlane2Line, RiUser3Line, RiSparklingLine,
   RiTeamLine, RiLightbulbFlashLine, RiTrophyLine, RiMedalLine, RiContrast2Line,
   RiDatabase2Line, RiBrainLine, RiMicroscopeLine, RiServiceLine,
+  // --- NEWLY ADDED ICONS TO REPLACE EMOJIS ---
+  RiUploadCloud2Line, RiFocus3Line, RiLineChartLine, RiCodeSSlashLine, 
+  RiBuilding2Line, RiLayoutMasonryLine, RiServerLine, 
 } from "react-icons/ri";
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -47,7 +50,7 @@ const useTypingEffect = (text, speed = 30, startDelay = 0) => {
 };
 
 /* ══════════════════════════════════════════════════════════════════════
-   2. COMPLEX SVG COMPONENTS
+   2. SVG COMPONENTS
    ══════════════════════════════════════════════════════════════════════ */
 
 export const Logo = ({ className = "w-9 h-9" }) => (
@@ -60,18 +63,17 @@ export const Logo = ({ className = "w-9 h-9" }) => (
   </svg>
 );
 
-// --- ADVANCED DASHBOARD MOCKUP ---
 const DashboardMockup = () => (
-  <div className="relative w-full max-w-5xl mx-auto bg-slate-50 border border-slate-200/80 rounded-2xl shadow-2xl shadow-slate-300/50 overflow-hidden transform hover:scale-[1.01] transition-transform duration-1000">
+  <div className="relative w-full max-w-5xl mx-auto bg-slate-50 border border-slate-200/80 rounded-2xl shadow-2xl shadow-slate-300/50 overflow-hidden">
     <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-200 bg-white">
-      <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400 shadow-sm shadow-red-200"/><div className="w-3 h-3 rounded-full bg-amber-400 shadow-sm shadow-amber-200"/><div className="w-3 h-3 rounded-full bg-green-400 shadow-sm shadow-green-200"/></div>
+      <div className="flex gap-1.5"><div className="w-3 h-3 rounded-full bg-red-400"/><div className="w-3 h-3 rounded-full bg-amber-400"/><div className="w-3 h-3 rounded-full bg-green-400"/></div>
       <div className="flex-1 mx-4"><div className="bg-slate-100 h-7 rounded-lg max-w-lg mx-auto flex items-center justify-center text-[10px] text-slate-400 font-medium border border-slate-200/50">interviewiq.ai/dashboard/sde-2-amazon</div></div>
     </div>
     <div className="grid grid-cols-12 min-h-[450px] bg-slate-50">
       <div className="col-span-3 border-r border-slate-200 p-4 bg-white hidden md:block">
         <div className="flex items-center gap-2 mb-6 px-2"><div className="w-7 h-7 rounded-lg bg-violet-100 flex items-center justify-center text-violet-600 text-xs"><RiBrainLine /></div><span className="text-xs font-bold text-slate-700">InterviewIQ</span></div>
         {["Dashboard", "Interviews", "Resume ATS", "Reports", "AI Chatbot", "Settings"].map((t, i) => (
-          <div key={t} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl mb-1 text-xs font-medium transition-colors ${i === 0 ? "bg-violet-50 text-violet-700 shadow-sm shadow-violet-100" : "text-slate-500 hover:bg-slate-50"}`}>
+          <div key={t} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl mb-1 text-xs font-medium transition-colors ${i === 0 ? "bg-violet-50 text-violet-700 shadow-sm" : "text-slate-500 hover:bg-slate-50"}`}>
             <div className={`w-5 h-5 rounded-md ${i === 0 ? "bg-violet-200" : "bg-slate-200"}`} /> {t}
           </div>
         ))}
@@ -79,7 +81,7 @@ const DashboardMockup = () => (
       <div className="col-span-12 md:col-span-9 p-6 bg-slate-50/50">
         <div className="grid grid-cols-3 gap-4 mb-6">
           {[{l: "Overall Score", v: "92%", c: "from-violet-500 to-indigo-500"}, {l: "Confidence", v: "88%", c: "from-blue-500 to-cyan-500"}, {l: "Technical", v: "95%", c: "from-emerald-500 to-teal-500"}].map(s => (
-            <div key={s.l} className="bg-white border border-slate-200/80 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+            <div key={s.l} className="bg-white border border-slate-200/80 rounded-xl p-4 shadow-sm">
               <p className="text-[10px] text-slate-400 font-medium mb-2 uppercase tracking-wider">{s.l}</p>
               <p className="text-2xl font-extrabold text-slate-800 mb-2">{s.v}</p>
               <div className="h-2 bg-slate-100 rounded-full overflow-hidden"><div className={`h-full bg-gradient-to-r ${s.c} rounded-full`} style={{width: s.v}} /></div>
@@ -95,8 +97,8 @@ const DashboardMockup = () => (
               ))}
             </div>
           </div>
-          <div className="bg-white border border-slate-200/80 rounded-xl p-4 shadow-sm flex items-center justify-center">
-            <RiBarChartLine className="text-5xl text-slate-200" />
+          <div className="bg-white border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col items-center justify-center text-slate-400">
+            <RiBarChartLine className="text-4xl mb-1" /><p className="text-[10px] font-medium">Performance Radar</p>
           </div>
         </div>
       </div>
@@ -121,30 +123,30 @@ const staggerChild = {
   initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
 };
 
-const scaleIn = { initial: { opacity: 0, scale: 0.9 }, whileInView: { opacity: 1, scale: 1 }, viewport: { once: true }, transition: { duration: 0.5, ease: "easeOut" } };
+const scaleIn = { initial: { opacity: 0, scale: 0.95 }, whileInView: { opacity: 1, scale: 1 }, viewport: { once: true }, transition: { duration: 0.5, ease: "easeOut" } };
 
 /* ══════════════════════════════════════════════════════════════════════
-   4. MASSIVE DATA ARRAYS
+   4. MASSIVE DATA ARRAYS (NO EMOJIS, PURE RI ICONS)
    ══════════════════════════════════════════════════════════════════════ */
 
 const NAV_LINKS = ["Features", "How It Works", "Pricing", "Testimonials", "FAQ"];
 
 const FEATURES = [
-  { icon: RiVideoLine, title: "AI Mock Interviews", desc: "Gemini AI generates personalized questions from your resume. Practice HR, Technical, DSA & System Design rounds in real-time.", iconBg: "bg-violet-100 text-violet-600", glow: "hover:shadow-violet-200/80" },
-  { icon: RiFileTextLine, title: "Resume ATS Analyzer", desc: "Upload PDF/DOCX → get ATS score, keyword gaps, grammar check, skill extraction & AI-powered optimization suggestions.", iconBg: "bg-blue-100 text-blue-600", glow: "hover:shadow-blue-200/80" },
-  { icon: RiRobot2Line, title: "AI Career Chatbot", desc: "Career, Resume, Coding, Interview & HR assistants. Powered by Gemini AI with full conversation memory.", iconBg: "bg-emerald-100 text-emerald-600", glow: "hover:shadow-emerald-200/80" },
-  { icon: RiBarChartLine, title: "Detailed Reports", desc: "Technical, communication, confidence & grammar scores. Radar charts, PDF export & step-by-step improvement plans.", iconBg: "bg-amber-100 text-amber-600", glow: "hover:shadow-amber-200/80" },
-  { icon: RiCodeLine, title: "NLP & Voice AI", desc: "Real-time voice input via Web Speech API. Filler word detection, pace analysis & deep communication scoring.", iconBg: "bg-pink-100 text-pink-600", glow: "hover:shadow-pink-200/80" },
-  { icon: RiShieldLine, title: "Computer Vision", desc: "Eye contact tracking, emotion detection, body language scoring & confidence analysis during live interviews.", iconBg: "bg-indigo-100 text-indigo-600", glow: "hover:shadow-indigo-200/80" },
+  { icon: RiVideoLine, title: "AI Mock Interviews", desc: "Gemini AI generates personalized questions from your resume. Practice HR, Technical, DSA & System Design rounds.", iconBg: "bg-violet-100 text-violet-600", glow: "hover:shadow-violet-200/80" },
+  { icon: RiFileTextLine, title: "Resume ATS Analyzer", desc: "Upload PDF/DOCX → get ATS score, keyword gaps, grammar check, skill extraction & AI optimization.", iconBg: "bg-blue-100 text-blue-600", glow: "hover:shadow-blue-200/80" },
+  { icon: RiRobot2Line, title: "AI Career Chatbot", desc: "Career, Resume, Coding, Interview & HR assistants. Powered by Gemini AI with conversation memory.", iconBg: "bg-emerald-100 text-emerald-600", glow: "hover:shadow-emerald-200/80" },
+  { icon: RiBarChartLine, title: "Detailed Reports", desc: "Technical, communication, confidence & grammar scores. Radar charts, PDF export & improvement plans.", iconBg: "bg-amber-100 text-amber-600", glow: "hover:shadow-amber-200/80" },
+  { icon: RiCodeLine, title: "NLP & Voice AI", desc: "Real-time voice input via Web Speech API. Filler word detection, pace analysis & deep scoring.", iconBg: "bg-pink-100 text-pink-600", glow: "hover:shadow-pink-200/80" },
+  { icon: RiShieldLine, title: "Computer Vision", desc: "Eye contact tracking, emotion detection, body language scoring & confidence analysis during interviews.", iconBg: "bg-indigo-100 text-indigo-600", glow: "hover:shadow-indigo-200/80" },
 ];
 
 const INTERVIEW_TYPES = [
-  { icon: "💻", title: "DSA & Coding", desc: "Data structures, algorithms, and live coding environments.", color: "from-blue-500 to-cyan-500" },
-  { icon: "🏗️", title: "System Design", desc: "Scalability, load balancing, and high-level architecture.", color: "from-violet-500 to-purple-500" },
-  { icon: "🤝", title: "Behavioral & HR", desc: "Leadership principles, conflict resolution, and culture fit.", color: "from-emerald-500 to-green-500" },
-  { icon: " React", title: "Frontend Specific", desc: "React, DOM, performance optimization, and state management.", color: "from-cyan-500 to-blue-500" },
-  { icon: "⚙️", title: "Backend & APIs", desc: "Databases, microservices, REST vs GraphQL, and caching.", color: "from-orange-500 to-red-500" },
-  { icon: "🧠", title: "Machine Learning", desc: "ML fundamentals, model deployment, and deep learning.", color: "from-pink-500 to-rose-500" },
+  { icon: RiCodeSSlashLine, title: "DSA & Coding", desc: "Data structures, algorithms, and live coding environments.", color: "from-blue-500 to-cyan-500" },
+  { icon: RiBuilding2Line, title: "System Design", desc: "Scalability, load balancing, and high-level architecture.", color: "from-violet-500 to-purple-500" },
+  { icon: RiTeamLine, title: "Behavioral & HR", desc: "Leadership principles, conflict resolution, and culture fit.", color: "from-emerald-500 to-green-500" },
+  { icon: RiLayoutMasonryLine, title: "Frontend Specific", desc: "React, DOM, performance optimization, and state management.", color: "from-cyan-500 to-blue-500" },
+  { icon: RiServerLine, title: "Backend & APIs", desc: "Databases, microservices, REST vs GraphQL, and caching.", color: "from-orange-500 to-red-500" },
+  { icon: RiBrainLine, title: "Machine Learning", desc: "ML fundamentals, model deployment, and deep learning.", color: "from-pink-500 to-rose-500" },
 ];
 
 const WHY_US = [
@@ -160,11 +162,11 @@ const PRICING_TIERS = [
 ];
 
 const FAQS = [
-  { q: "How does the AI generate personalized questions?", a: "When you upload your resume, our AI (powered by Gemini) extracts your skills, projects, and experience. It cross-references this with the specific job role and company you select to generate highly relevant, contextual interview questions that mirror real interviews." },
-  { q: "Is my video and audio data secure?", a: "Absolutely. We take privacy extremely seriously. All video and audio processing happens in real-time and is not stored permanently on our servers unless you explicitly choose to save the recording to your dashboard. Data is encrypted in transit and at rest." },
-  { q: "Can I use InterviewIQ for non-tech roles?", a: "Yes! While we excel at technical interviews (DSA, System Design, Frontend/Backend), our AI is highly capable of generating questions for HR, Marketing, Product Management, and other non-technical roles." },
-  { q: "How accurate is the ATS Resume Analyzer?", a: "Our analyzer parses your resume against standard ATS algorithms (like those used by Workday, Greenhouse, and Lever). It checks formatting, keyword density, section headers, and provides actionable fixes. Users typically see a 30-50% increase in ATS scores." },
-  { q: "Do I need to install any software?", a: "No! InterviewIQ is a 100% web-based platform. You just need a modern browser (Chrome, Edge, Safari) and a webcam/microphone if you want to practice video interviews. No downloads required." },
+  { q: "How does the AI generate personalized questions?", a: "When you upload your resume, our AI (powered by Gemini) extracts your skills, projects, and experience. It cross-references this with the specific job role and company you select to generate highly relevant, contextual interview questions." },
+  { q: "Is my video and audio data secure?", a: "Absolutely. We take privacy extremely seriously. All video and audio processing happens in real-time and is not stored permanently on our servers unless you explicitly choose to save the recording. Data is encrypted in transit and at rest." },
+  { q: "Can I use InterviewIQ for non-tech roles?", a: "Yes! While we excel at technical interviews (DSA, System Design), our AI is highly capable of generating questions for HR, Marketing, Product Management, and other non-technical roles." },
+  { q: "How accurate is the ATS Resume Analyzer?", a: "Our analyzer parses your resume against standard ATS algorithms (like those used by Workday and Lever). It checks formatting, keyword density, and provides actionable fixes. Users typically see a 30-50% increase in ATS scores." },
+  { q: "Do I need to install any software?", a: "No! InterviewIQ is a 100% web-based platform. You just need a modern browser (Chrome, Edge, Safari) and a webcam/microphone if you want to practice video interviews." },
   { q: "What payment methods do you accept?", a: "We accept all major credit/debit cards (Visa, Mastercard, Amex), UPI, and PayPal. For Enterprise plans, we also support invoice-based payments and bank transfers." },
 ];
 
@@ -173,7 +175,7 @@ const TESTIMONIALS = [
   { name: "Priya Nair", role: "Frontend Dev at Google", text: "The ATS analyzer boosted my resume score from 38% to 91%. The keyword suggestions were incredibly targeted. Got 8 interview calls in 2 weeks.", rating: 5, avatar: "P", color: "from-blue-400 to-cyan-500" },
   { name: "Rahul Verma", role: "ML Engineer at Meta", text: "The AI chatbot helped me nail system design and DSA prep. The follow-up questions felt like a real interview. Best prep platform I've used.", rating: 5, avatar: "R", color: "from-emerald-400 to-teal-500" },
   { name: "Sneha Patel", role: "PM at Microsoft", text: "Even for non-tech roles, the AI was incredibly accurate. It picked up on my case study experience and asked tough PM questions.", rating: 5, avatar: "S", color: "from-pink-400 to-rose-500" },
-  { name: "Alex Chen", role: "Backend Dev at Netflix", text: "The voice analysis caught my filler words and pacing issues I didn't even realize I had. After 3 practice sessions, my communication score jumped 40%.", rating: 5, avatar: "A", color: "from-red-400 to-orange-500" },
+  { name: "Alex Chen", role: "Backend Dev at Netflix", text: "The voice analysis caught my filler words and pacing issues I didn't even realize I had. After 3 sessions, my communication score jumped 40%.", rating: 5, avatar: "A", color: "from-red-400 to-orange-500" },
 ];
 
 const BLOGS = [
@@ -212,10 +214,9 @@ const CountUp = ({ value, suffix = "", decimal = false }) => {
 };
 
 /* ══════════════════════════════════════════════════════════════════════
-   5. SUB-COMPONENTS
+   5. SUB-COMPONENTS (ZERO OVERLAP GUARANTEED)
    ══════════════════════════════════════════════════════════════════════ */
 
-// --- MOBILE MENU ---
 const MobileMenu = ({ isOpen, onClose }) => (
   <AnimatePresence>
     {isOpen && (
@@ -233,20 +234,19 @@ const MobileMenu = ({ isOpen, onClose }) => (
   </AnimatePresence>
 );
 
-// --- NAVBAR ---
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => { const onScroll = () => setScrolled(window.scrollY > 20); window.addEventListener("scroll", onScroll); return () => window.removeEventListener("scroll", onScroll); }, []);
   return (
     <>
-      <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled ? "bg-white/80 backdrop-blur-2xl shadow-lg shadow-slate-200/50 border-b border-slate-200/50" : "bg-transparent border-b border-transparent"}`}>
+      <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled ? "bg-white/90 backdrop-blur-2xl shadow-lg shadow-slate-200/50 border-b border-slate-200/50" : "bg-transparent border-b border-transparent"}`}>
         <div className="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 group"><Logo className="w-9 h-9 group-hover:scale-105 transition-transform" /><span className="font-bold text-[17px] tracking-tight font-display text-slate-900">InterviewIQ<span className="text-violet-600">.ai</span></span></Link>
           <div className="hidden lg:flex items-center gap-1 text-sm">{NAV_LINKS.map((item) => (<a key={item} href={`#${item.toLowerCase().replace(/\s+/g, "-")}`} className="px-4 py-2 text-slate-500 hover:text-violet-600 rounded-lg hover:bg-violet-50 transition-all font-medium">{item}</a>))}</div>
           <div className="hidden lg:flex items-center gap-2.5">
             <Link to="/auth" className="text-sm text-slate-600 hover:text-violet-600 transition px-4 py-2 rounded-xl hover:bg-slate-100 font-medium">Sign In</Link>
-            <Link to="/auth" className="text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-white transition shadow-lg shadow-violet-200/50 hover:shadow-violet-300/50 px-5 py-2 rounded-xl hover:-translate-y-0.5 duration-300">Get Started</Link>
+            <Link to="/auth" className="text-sm font-semibold bg-violet-600 hover:bg-violet-500 text-white transition shadow-lg shadow-violet-200/50 px-5 py-2 rounded-xl">Get Started</Link>
           </div>
           <button onClick={() => setMenuOpen(true)} className="lg:hidden p-2 hover:bg-slate-100 rounded-xl transition"><RiMenuLine className="text-2xl text-slate-700" /></button>
         </div>
@@ -256,7 +256,6 @@ const Navbar = () => {
   );
 };
 
-// --- HERO WITH BACKGROUND IMAGE ---
 const HeroSection = () => {
   const ref = useRef(null);
   const mouse = useMouseSpotlight(ref);
@@ -265,13 +264,13 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1920&q=80')" }} />
       <div className="absolute inset-0 bg-gradient-to-b from-white via-white/90 to-slate-50/95 backdrop-blur-[3px]" />
       <div className="absolute inset-0 dot-grid opacity-50" />
-      <div className="absolute inset-0 pointer-events-none transition-all duration-300" style={{ background: `radial-gradient(800px circle at ${mouse.x}px ${mouse.y}px, rgba(124, 58, 237, 0.08), transparent 50%)` }} />
-      <div className="absolute top-[10%] left-[15%] w-[600px] h-[600px] bg-violet-300/30 rounded-full blur-[150px] animate-float-slow" />
-      <div className="absolute bottom-[5%] right-[10%] w-[500px] h-[500px] bg-cyan-200/30 rounded-full blur-[120px] animate-float-slower" />
+      <div className="absolute inset-0 pointer-events-none transition-all duration-300" style={{ background: `radial-gradient(800px circle at ${mouse.x}px ${mouse.y}px, rgba(124, 58, 237, 0.06), transparent 50%)` }} />
+      <div className="absolute top-[10%] left-[15%] w-[600px] h-[600px] bg-violet-300/20 rounded-full blur-[150px] animate-float-slow" />
+      <div className="absolute bottom-[5%] right-[10%] w-[500px] h-[500px] bg-cyan-200/20 rounded-full blur-[120px] animate-float-slower" />
       
       <div className="relative max-w-4xl mx-auto text-center z-10">
         <motion.div {...fadeUp(0)}>
-          <div className="inline-flex items-center gap-2 text-xs font-bold bg-violet-50 text-violet-700 border border-violet-200/80 px-5 py-2.5 rounded-full mb-8 shadow-sm shadow-violet-100">
+          <div className="inline-flex items-center gap-2 text-xs font-bold bg-violet-50 text-violet-700 border border-violet-200/80 px-5 py-2.5 rounded-full mb-8 shadow-sm">
             <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" /><span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500" /></span>
             Powered by Gemini AI • Trusted by 50K+ Users
           </div>
@@ -280,14 +279,14 @@ const HeroSection = () => {
           </h1>
           <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-12 leading-relaxed">Upload your resume → AI generates personalized questions → Get real-time feedback → Land your dream job. Used by <span className="text-slate-900 font-bold">50,000+</span> developers.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/auth" className="group flex items-center gap-2.5 bg-violet-600 hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-violet-300/40 hover:shadow-violet-400/50 transition-all duration-300 text-[15px] hover:-translate-y-1">Start for Free <RiArrowRightLine className="text-xl group-hover:translate-x-1 transition-transform" /></Link>
-            <Link to="/auth" className="group flex items-center gap-2.5 border border-slate-300 hover:bg-white/60 hover:border-slate-400 text-slate-700 font-semibold px-8 py-4 rounded-2xl transition-all duration-300 text-[15px] backdrop-blur-sm shadow-sm hover:shadow-md"><RiPlayCircleLine className="text-xl text-violet-500" /> Watch Demo</Link>
+            <Link to="/auth" className="group flex items-center gap-2.5 bg-violet-600 hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-violet-300/40 transition-all duration-300 text-[15px] hover:-translate-y-0.5">Start for Free <RiArrowRightLine className="text-xl group-hover:translate-x-1 transition-transform" /></Link>
+            <Link to="/auth" className="group flex items-center gap-2.5 border border-slate-300 hover:bg-white/60 hover:border-slate-400 text-slate-700 font-semibold px-8 py-4 rounded-2xl transition-all duration-300 text-[15px] backdrop-blur-sm shadow-sm"><RiPlayCircleLine className="text-xl text-violet-500" /> Watch Demo</Link>
           </div>
         </motion.div>
         
         <motion.div {...fadeUp(0.2)} className="mt-20 grid grid-cols-2 sm:grid-cols-4 max-w-2xl mx-auto gap-4">
           {STATS.map(s => (
-            <div key={s.label} className="bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-2xl py-5 px-3 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-violet-300 transition-all duration-500 hover:-translate-y-1">
+            <div key={s.label} className="bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-2xl py-5 px-3 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:border-violet-300 transition-all duration-500 hover:-translate-y-0.5">
               <p className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600"><CountUp {...s} /></p>
               <p className="text-[11px] text-slate-400 mt-1.5 font-bold uppercase tracking-wider">{s.label}</p>
             </div>
@@ -302,21 +301,18 @@ const HeroSection = () => {
   );
 };
 
-// --- LOGOS ---
 const LogosSection = () => (
   <section className="relative py-20 overflow-hidden border-y border-slate-200/80 bg-white">
-    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-48 bg-violet-100/50 rounded-full blur-[100px] pointer-events-none" />
     <div className="relative text-center mb-12 px-6">
       <p className="uppercase tracking-[0.3em] text-violet-500 text-[11px] font-bold mb-3">Trusted by top companies</p>
       <h3 className="text-3xl md:text-4xl font-bold text-slate-900 font-display">Candidates Placed At</h3>
-      <p className="text-slate-400 mt-3 max-w-md mx-auto">Our users have successfully secured roles at the world's most prestigious tech companies.</p>
     </div>
     <div className="relative overflow-hidden">
       <div className="pointer-events-none absolute left-0 top-0 h-full w-40 bg-gradient-to-r from-white to-transparent z-10" />
       <div className="pointer-events-none absolute right-0 top-0 h-full w-40 bg-gradient-to-l from-white to-transparent z-10" />
       <div className="flex animate-marquee gap-6 w-max">
         {[...COMPANIES, ...COMPANIES].map((c, i) => (
-          <div key={i} className="group flex items-center gap-4 min-w-[220px] rounded-2xl border border-slate-100 bg-slate-50/50 px-6 py-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-violet-200 hover:bg-white hover:shadow-xl hover:shadow-violet-100/50">
+          <div key={i} className="group flex items-center gap-4 min-w-[220px] rounded-2xl border border-slate-100 bg-slate-50/50 px-6 py-5 transition-all duration-500 hover:-translate-y-1 hover:border-violet-200 hover:bg-white hover:shadow-xl hover:shadow-violet-100/50">
             <img src={c.logo} alt={c.name} className="w-9 h-9 object-contain opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 no-drag" />
             <span className="font-bold text-[16px] text-slate-300 group-hover:text-slate-900 transition-colors duration-500">{c.name}</span>
           </div>
@@ -326,19 +322,17 @@ const LogosSection = () => (
   </section>
 );
 
-// --- FEATURES ---
 const FeaturesSection = () => (
   <section id="features" className="section-padding px-6 max-w-6xl mx-auto bg-gradient-to-b from-white to-slate-50/50">
     <motion.div {...fadeUp(0)} className="text-center mb-20">
       <span className="inline-block text-[11px] font-bold uppercase tracking-[0.3em] text-violet-500 mb-4">Features</span>
       <h2 className="text-4xl md:text-5xl font-bold mb-6 font-display text-slate-900">Everything You Need to <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Succeed</span></h2>
-      <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed text-lg">Enterprise-grade AI tools that adapt to your resume and target role — no generic questions, ever.</p>
     </motion.div>
     <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {FEATURES.map(f => (
         <motion.div key={f.title} variants={staggerChild} className={`group relative bg-white border border-slate-100 rounded-2xl p-8 hover:border-violet-200 transition-all duration-500 hover:shadow-2xl ${f.glow} cursor-default hover:-translate-y-1`}>
           <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-6 transition-all duration-500 group-hover:scale-110 shadow-sm"><div className={`${f.iconBg} w-full h-full rounded-2xl flex items-center justify-center`}><f.icon /></div></div>
-          <h3 className="font-bold text-slate-900 mb-3 text-lg group-hover:text-violet-600 transition-colors duration-300">{f.title}</h3>
+          <h3 className="font-bold text-slate-900 mb-3 text-lg group-hover:text-violet-600 transition-colors">{f.title}</h3>
           <p className="text-sm text-slate-500 leading-relaxed">{f.desc}</p>
         </motion.div>
       ))}
@@ -346,19 +340,17 @@ const FeaturesSection = () => (
   </section>
 );
 
-// --- INTERVIEW TYPES SUPPORTED ---
 const InterviewTypesSection = () => (
   <section className="section-padding px-6 max-w-6xl mx-auto bg-slate-50 border-y border-slate-200/80">
     <motion.div {...fadeUp(0)} className="text-center mb-16">
       <span className="inline-block text-[11px] font-bold uppercase tracking-[0.3em] text-violet-500 mb-4">Versatility</span>
       <h2 className="text-4xl md:text-5xl font-bold mb-6 font-display text-slate-900">Master Any <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-cyan-600">Interview Type</span></h2>
-      <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed text-lg">Whether you're aiming for frontend, backend, ML, or management—we have tailored AI models for every domain.</p>
     </motion.div>
     <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {INTERVIEW_TYPES.map((t, i) => (
+      {INTERVIEW_TYPES.map((t) => (
         <motion.div key={t.title} variants={staggerChild} className="group relative bg-white rounded-2xl p-8 border border-slate-100 hover:border-transparent transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 overflow-hidden">
           <div className={`absolute inset-0 bg-gradient-to-br ${t.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-          <div className="text-4xl mb-5">{t.icon}</div>
+          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${t.color} text-white flex items-center justify-center text-xl mb-5 shadow-lg transition-transform group-hover:scale-110`}><t.icon /></div>
           <h3 className="font-bold text-slate-900 mb-2 text-lg group-hover:text-violet-600 transition">{t.title}</h3>
           <p className="text-sm text-slate-500 leading-relaxed">{t.desc}</p>
         </motion.div>
@@ -367,16 +359,12 @@ const InterviewTypesSection = () => (
   </section>
 );
 
-// --- LIVE DEMO CHAT ---
 const LiveDemoSection = () => {
   const [activeStep, setActiveStep] = useState(0);
   const { displayed: aiText, isDone } = useTypingEffect(CHAT_HISTORY[activeStep]?.text || "", 15, 800);
   const chatEndRef = useRef(null);
   
-  useEffect(() => {
-    if (chatEndRef.current) chatEndRef.current.scrollIntoView({ behavior: "smooth" });
-  }, [activeStep]);
-
+  useEffect(() => { if (chatEndRef.current) chatEndRef.current.scrollIntoView({ behavior: "smooth" }); }, [activeStep]);
   useEffect(() => {
     if (CHAT_HISTORY[activeStep]?.role === 'ai' && isDone) { const t = setTimeout(() => setActiveStep(p => Math.min(p + 1, CHAT_HISTORY.length - 1)), 2500); return () => clearTimeout(t); }
     if (CHAT_HISTORY[activeStep]?.role === 'user' && isDone) { const t = setTimeout(() => setActiveStep(p => Math.min(p + 1, CHAT_HISTORY.length - 1)), 1500); return () => clearTimeout(t); }
@@ -395,7 +383,7 @@ const LiveDemoSection = () => {
               <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md shadow-violet-200"><RiCpuLine className="text-xl" /></div>
               <div><p className="font-bold text-sm text-slate-800">System Design AI</p><p className="text-[10px] text-emerald-500 font-bold flex items-center gap-1"><span className="w-1.5 h-1.5 bg-emerald-400 rounded-full inline-block animate-pulse"/> Active • SDE-2 Amazon</p></div>
             </div>
-            <div className="flex gap-2 text-slate-400 text-xs"><RiUser3Line className="text-lg" /></div>
+            <RiUser3Line className="text-xl text-slate-300" />
           </div>
           <div className="p-6 h-96 overflow-y-auto scrollbar-hide space-y-5 bg-slate-50/50">
             {CHAT_HISTORY.slice(0, activeStep + 1).map((msg, i) => (
@@ -415,34 +403,31 @@ const LiveDemoSection = () => {
   );
 };
 
-// --- WHY CHOOSE US ---
 const WhyChooseUsSection = () => (
   <section className="section-padding px-6 bg-slate-900 text-white overflow-hidden relative">
     <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />
     <motion.div {...fadeUp(0)} className="text-center mb-16 max-w-3xl mx-auto relative z-10">
       <span className="inline-block text-[11px] font-bold uppercase tracking-[0.3em] text-violet-400 mb-4">Comparison</span>
       <h2 className="text-4xl md:text-5xl font-bold mb-6 font-display">Why InterviewIQ <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">Wins</span></h2>
-      <p className="text-slate-400 text-lg leading-relaxed">Don't waste time with generic platforms. See how our AI-first approach completely outperforms the competition.</p>
     </motion.div>
     <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-6 relative z-10">
       {WHY_US.map((col, colIdx) => (
-        <motion.div key={col.title} {...fadeUp(colIdx * 0.1)} className={`rounded-2xl p-8 flex flex-col ${col.highlight ? 'bg-gradient-to-b from-violet-600 to-indigo-700 text-white shadow-2xl shadow-violet-900/50 scale-105 border border-violet-500/30' : 'bg-slate-800/50 border border-slate-700/50 text-slate-300'}`}>
-          <h3 className="text-xl font-bold mb-6 font-display">{col.title}</h3>
-          <ul className="space-y-4 flex-1">
+        <motion.div key={col.title} {...fadeUp(colIdx * 0.1)} className={`rounded-2xl p-8 flex flex-col min-h-[400px] ${col.highlight ? 'bg-gradient-to-b from-violet-600 to-indigo-700 text-white shadow-2xl shadow-violet-900/50 border border-violet-500/30' : 'bg-slate-800/50 border border-slate-700/50 text-slate-300'}`}>
+          <h3 className="text-xl font-bold mb-8 font-display">{col.title}</h3>
+          <ul className="space-y-5 flex-1">
             {col.features.map((f, i) => (
               <li key={i} className="flex items-start gap-3 text-sm">
                 <RiCheckLine className={`text-lg flex-shrink-0 mt-0.5 ${col.highlight ? 'text-white/80' : 'text-slate-600'}`} /> {f}
               </li>
             ))}
           </ul>
-          {col.highlight && <Link to="/auth" className="mt-8 block text-center bg-white text-violet-700 font-bold py-3 rounded-xl shadow-lg hover:bg-slate-100 transition">Start Free Trial</Link>}
+          {col.highlight && <Link to="/auth" className="mt-8 block text-center bg-white text-violet-700 font-bold py-3.5 rounded-xl shadow-lg hover:bg-slate-100 transition">Start Free Trial</Link>}
         </motion.div>
       ))}
     </div>
   </section>
 );
 
-// --- HOW IT WORKS ---
 const HowItWorksSection = () => (
   <section id="how-it-works" className="section-padding px-6 bg-white">
     <div className="max-w-5xl mx-auto">
@@ -450,33 +435,29 @@ const HowItWorksSection = () => (
         <span className="inline-block text-[11px] font-bold uppercase tracking-[0.3em] text-violet-500 mb-4">How It Works</span>
         <h2 className="text-4xl md:text-5xl font-bold font-display text-slate-900">Four Steps to <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Your Offer</span></h2>
       </motion.div>
-      <div className="relative">
-        <div className="hidden lg:block absolute top-14 left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-violet-200/0 via-violet-300 to-violet-200/0" />
-        <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-          {[
-            { step: "01", title: "Upload Resume", desc: "PDF or DOCX — AI extracts skills, projects & experience automatically", icon: "📄" },
-            { step: "02", title: "Choose Interview", desc: "Select role type, difficulty level & target company for customization", icon: "🎯" },
-            { step: "03", title: "AI Generates Q&A", desc: "Gemini creates 10+ personalized questions based on YOUR resume", icon: "🤖" },
-            { step: "04", title: "Get Your Report", desc: "Detailed scores, feedback, strengths & a step-by-step improvement plan", icon: "📊" },
-          ].map(s => (
-            <motion.div key={s.step} variants={staggerChild} className="relative text-center group">
-              <div className="relative mx-auto mb-8 w-28 h-28">
-                <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-[2rem] rotate-6 group-hover:rotate-12 transition-transform duration-500 opacity-20 blur-md" />
-                <div className="relative w-full h-full bg-gradient-to-br from-violet-500 to-indigo-600 rounded-[2rem] flex flex-col items-center justify-center shadow-xl shadow-violet-200 group-hover:shadow-2xl group-hover:shadow-violet-300 transition-all border border-violet-400/20">
-                  <span className="text-3xl mb-1">{s.icon}</span><span className="text-xs font-extrabold text-white/80">{s.step}</span>
-                </div>
+      <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        {[
+          { step: "01", title: "Upload Resume", desc: "PDF or DOCX — AI extracts skills, projects & experience automatically", icon: RiUploadCloud2Line },
+          { step: "02", title: "Choose Interview", desc: "Select role type, difficulty level & target company for customization", icon: RiFocus3Line },
+          { step: "03", title: "AI Generates Q&A", desc: "Gemini creates 10+ personalized questions based on YOUR resume", icon: RiRobot2Line },
+          { step: "04", title: "Get Your Report", desc: "Detailed scores, feedback, strengths & a step-by-step improvement plan", icon: RiLineChartLine },
+        ].map(s => (
+          <motion.div key={s.step} variants={staggerChild} className="relative text-center group">
+            <div className="relative mx-auto mb-8 w-28 h-28 flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-[2rem] rotate-6 group-hover:rotate-12 transition-transform duration-500 opacity-20 blur-md" />
+              <div className="relative w-full h-full bg-gradient-to-br from-violet-500 to-indigo-600 rounded-[2rem] flex flex-col items-center justify-center shadow-xl shadow-violet-200 group-hover:shadow-2xl transition-all border border-violet-400/20">
+                <s.icon className="text-3xl text-white mb-1" /><span className="text-xs font-extrabold text-white/80">{s.step}</span>
               </div>
-              <h3 className="font-bold text-slate-900 mb-3 text-lg">{s.title}</h3>
-              <p className="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">{s.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
+            </div>
+            <h3 className="font-bold text-slate-900 mb-3 text-lg">{s.title}</h3>
+            <p className="text-sm text-slate-500 leading-relaxed max-w-[240px] mx-auto">{s.desc}</p>
+          </motion.div>
+        ))}
+      </motion.div>
     </div>
   </section>
 );
 
-// --- PRICING ---
 const PricingSection = () => {
   const [isYearly, setIsYearly] = useState(false);
   return (
@@ -494,9 +475,9 @@ const PricingSection = () => {
           </div>
         </motion.div>
         
-        <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid md:grid-cols-3 gap-8 items-center">
+        <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView" className="grid md:grid-cols-3 gap-8 items-stretch">
           {PRICING_TIERS.map(tier => (
-            <motion.div key={tier.name} variants={staggerChild} className={`relative bg-white rounded-3xl p-8 flex flex-col transition-all duration-500 ${tier.popular ? 'border-2 border-violet-500 shadow-2xl shadow-violet-200/50 scale-105 z-10 md:-my-4' : 'border border-slate-200 hover:shadow-xl hover:border-slate-300'}`}>
+            <motion.div key={tier.name} variants={staggerChild} className={`relative bg-white rounded-3xl p-8 flex flex-col transition-all duration-500 ${tier.popular ? 'border-2 border-violet-500 shadow-2xl shadow-violet-200/50 z-10' : 'border border-slate-200 hover:shadow-xl hover:border-slate-300'}`}>
               {tier.popular && <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs font-bold px-6 py-1.5 rounded-full shadow-lg shadow-violet-300/50">Most Popular</div>}
               <h3 className="text-2xl font-bold text-slate-900 mb-2 font-display">{tier.name}</h3>
               <p className="text-sm text-slate-500 mb-8">{tier.desc}</p>
@@ -522,54 +503,42 @@ const PricingSection = () => {
   );
 };
 
-// --- TESTIMONIALS 3D CAROUSEL ---
 const TestimonialsSection = () => {
   const [current, setCurrent] = useState(0);
   const next = useCallback(() => setCurrent(p => (p + 1) % TESTIMONIALS.length), []);
   const prev = useCallback(() => setCurrent(p => (p - 1 + TESTIMONIALS.length) % TESTIMONIALS.length), []);
   useEffect(() => { const t = setInterval(next, 6000); return () => clearInterval(t); }, [next]);
 
-  const getStyles = (i) => {
-    if (i === current) return { x: 0, scale: 1, opacity: 1, zIndex: 10, rotateY: 0, blur: 0 };
-    const diff = (i - current + TESTIMONIALS.length) % TESTIMONIALS.length;
-    if (diff === 1 || diff === TESTIMONIALS.length - 1) return { x: diff === 1 ? 300 : -300, scale: 0.85, opacity: 0.5, zIndex: 0, rotateY: diff === 1 ? -10 : 10, blur: 2 };
-    return { x: 0, scale: 0.7, opacity: 0, zIndex: -1, rotateY: 0, blur: 4 };
-  };
-
   return (
-    <section id="testimonials" className="section-padding px-6 max-w-6xl mx-auto bg-slate-50 border-y border-slate-200/80 overflow-hidden">
-      <motion.div {...fadeUp(0)} className="text-center mb-20">
+    <section id="testimonials" className="section-padding px-6 max-w-4xl mx-auto bg-slate-50 border-y border-slate-200/80">
+      <motion.div {...fadeUp(0)} className="text-center mb-16">
         <span className="inline-block text-[11px] font-bold uppercase tracking-[0.3em] text-violet-500 mb-4">Testimonials</span>
         <h2 className="text-4xl md:text-5xl font-bold font-display text-slate-900">Loved by <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Developers</span></h2>
       </motion.div>
       
-      <div className="relative flex items-center justify-center h-[350px] max-w-4xl mx-auto perspective-[1200px]">
-        {TESTIMONIALS.map((t, i) => {
-          const style = getStyles(i);
-          return (
-            <motion.div key={i} animate={style} transition={{ type: "spring", stiffness: 200, damping: 30 }} onClick={() => setCurrent(i)} className="absolute w-full max-w-lg bg-white border border-slate-200 rounded-3xl p-10 text-center cursor-pointer shadow-xl hover:shadow-2xl" style={{ filter: `blur(${style.blur}px)` }}>
-              <RiDoubleQuotesL className="text-violet-100 text-5xl mx-auto mb-6" />
-              <div className="flex justify-center gap-1 mb-6">{Array.from({ length: t.rating }).map((_, j) => <RiStarFill key={j} className="text-amber-400 text-xl" />)}</div>
-              <p className="text-lg text-slate-700 leading-relaxed mb-8 font-medium">"{t.text}"</p>
-              <div className="flex items-center justify-center gap-4 pt-6 border-t border-slate-100">
-                <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white font-bold text-xl shadow-lg`}>{t.avatar}</div>
-                <div className="text-left"><p className="font-bold text-slate-900 text-lg">{t.name}</p><p className="text-sm text-violet-500">{t.role}</p></div>
-              </div>
-            </motion.div>
-          );
-        })}
+      <div className="relative overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div key={current} initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -100 }} transition={{ duration: 0.5, ease: "easeInOut" }} className="bg-white border border-slate-200 rounded-3xl p-10 md:p-14 text-center shadow-xl">
+            <RiDoubleQuotesL className="text-violet-100 text-5xl mx-auto mb-6" />
+            <div className="flex justify-center gap-1 mb-6">{Array.from({ length: TESTIMONIALS[current].rating }).map((_, i) => <RiStarFill key={i} className="text-amber-400 text-xl" />)}</div>
+            <p className="text-xl text-slate-700 leading-relaxed mb-10 font-medium max-w-2xl mx-auto">"{TESTIMONIALS[current].text}"</p>
+            <div className="flex items-center justify-center gap-4 pt-8 border-t border-slate-100">
+              <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${TESTIMONIALS[current].color} flex items-center justify-center text-white font-bold text-xl shadow-lg`}>{TESTIMONIALS[current].avatar}</div>
+              <div className="text-left"><p className="font-bold text-slate-900 text-lg">{TESTIMONIALS[current].name}</p><p className="text-sm text-violet-500">{TESTIMONIALS[current].role}</p></div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
       
-      <div className="flex items-center justify-center gap-6 mt-12">
-        <button onClick={prev} className="p-4 border border-slate-200 rounded-full hover:bg-white hover:border-slate-300 transition shadow-sm hover:shadow-md"><RiArrowLeftLine className="text-xl text-slate-600" /></button>
+      <div className="flex items-center justify-center gap-6 mt-10">
+        <button onClick={prev} className="p-4 border border-slate-200 rounded-full hover:bg-white hover:border-slate-300 transition shadow-sm hover:shadow-md bg-white/50"><RiArrowLeftLine className="text-xl text-slate-600" /></button>
         <div className="flex gap-2.5">{TESTIMONIALS.map((_, i) => <button key={i} onClick={() => setCurrent(i)} className={`h-2.5 rounded-full transition-all duration-500 ${i === current ? 'bg-violet-600 w-8' : 'bg-slate-300 w-2.5 hover:bg-slate-400'}`} />)}</div>
-        <button onClick={next} className="p-4 border border-slate-200 rounded-full hover:bg-white hover:border-slate-300 transition shadow-sm hover:shadow-md"><RiArrowRightLine className="text-xl text-slate-600" /></button>
+        <button onClick={next} className="p-4 border border-slate-200 rounded-full hover:bg-white hover:border-slate-300 transition shadow-sm hover:shadow-md bg-white/50"><RiArrowRightLine className="text-xl text-slate-600" /></button>
       </div>
     </section>
   );
 };
 
-// --- FAQ ACCORDION ---
 const FAQSection = () => {
   const [open, setOpen] = useState(null);
   return (
@@ -584,7 +553,7 @@ const FAQSection = () => {
             <motion.div key={i} variants={staggerChild} className="bg-slate-50 border border-slate-200/80 rounded-2xl overflow-hidden hover:border-violet-200 transition-colors duration-300">
               <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between p-6 text-left group">
                 <span className="font-bold text-slate-800 pr-4 group-hover:text-violet-700 transition">{faq.q}</span>
-                <motion.div animate={{ rotate: open === i ? 180 : 0 }} transition={{ duration: 0.3 }} className="bg-white rounded-full p-1 shadow-sm border border-slate-200"><RiArrowDownSLine className="text-lg text-violet-500" /></motion.div>
+                <motion.div animate={{ rotate: open === i ? 180 : 0 }} transition={{ duration: 0.3 }} className="bg-white rounded-full p-1 shadow-sm border border-slate-200 flex-shrink-0"><RiArrowDownSLine className="text-lg text-violet-500" /></motion.div>
               </button>
               <AnimatePresence>
                 {open === i && (
@@ -601,7 +570,6 @@ const FAQSection = () => {
   );
 };
 
-// --- BLOG PREVIEW ---
 const BlogSection = () => (
   <section className="section-padding px-6 max-w-6xl mx-auto bg-slate-50 border-y border-slate-200/80">
     <motion.div {...fadeUp(0)} className="text-center mb-16">
@@ -613,7 +581,6 @@ const BlogSection = () => (
         <motion.div key={blog.title} variants={staggerChild} className="group bg-white border border-slate-200/80 rounded-2xl overflow-hidden hover:shadow-2xl hover:border-slate-300 transition-all duration-500 cursor-pointer hover:-translate-y-1">
           <div className="h-56 overflow-hidden relative">
             <img src={blog.img} alt={blog.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
           <div className="p-7">
             <div className="flex items-center gap-3 mb-4">
@@ -628,15 +595,14 @@ const BlogSection = () => (
   </section>
 );
 
-// --- NEWSLETTER ---
 const NewsletterSection = () => (
   <section className="py-24 px-6 bg-white relative overflow-hidden">
     <div className="absolute inset-0 bg-gradient-to-r from-violet-50 via-transparent to-indigo-50" />
     <div className="max-w-2xl mx-auto text-center relative z-10">
       <motion.div {...fadeUp(0)}>
-        <RiMailLine className="text-5xl text-violet-300 mx-auto mb-6" />
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-violet-100 rounded-2xl mb-6 border border-violet-200 text-violet-600"><RiMailLine className="text-3xl" /></div>
         <h2 className="text-3xl md:text-4xl font-bold mb-4 font-display text-slate-900">Stay in the Loop</h2>
-        <p className="text-slate-500 mb-8 leading-relaxed">Get weekly interview tips, AI updates, and exclusive offers directly in your inbox. No spam, ever.</p>
+        <p className="text-slate-500 mb-8 leading-relaxed">Get weekly interview tips, AI updates, and exclusive offers directly in your inbox.</p>
         <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
           <input type="email" placeholder="Enter your email" className="flex-1 px-5 py-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent bg-white shadow-sm text-sm" />
           <button className="bg-violet-600 hover:bg-violet-500 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-violet-200/50 transition-all hover:-translate-y-0.5 text-sm whitespace-nowrap">Subscribe Free</button>
@@ -646,15 +612,15 @@ const NewsletterSection = () => (
   </section>
 );
 
-// --- CTA ---
 const CTASection = () => (
   <section className="section-padding px-6 bg-slate-50">
     <div className="max-w-3xl mx-auto relative">
       <div className="absolute inset-0 -m-24 bg-violet-200/30 rounded-full blur-[100px] pointer-events-none" />
       <motion.div {...fadeUp(0)} className="relative text-center">
-        <div className="gradient-border">
-          <div className="bg-white rounded-3xl px-8 py-20 md:px-20 md:py-24 shadow-2xl">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-violet-50 rounded-2xl mb-8 border border-violet-100"><RiSparklingLine className="text-3xl text-violet-500" /></div>
+        {/* ADDED overflow-hidden HERE to prevent spinning gradient overlap */}
+        <div className="gradient-border overflow-hidden">
+          <div className="bg-white rounded-3xl px-8 py-20 md:px-20 md:py-24 shadow-2xl relative z-10">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-violet-50 rounded-2xl mb-8 border border-violet-100 text-violet-500"><RiSparklingLine className="text-3xl" /></div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight font-display text-slate-900">Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">Land Your Dream Job?</span></h2>
             <p className="text-slate-500 mb-12 leading-relaxed max-w-lg mx-auto text-lg">Join 50,000+ developers who prepare smarter, interview with confidence, and get hired faster.</p>
             <Link to="/auth" className="group inline-flex items-center gap-3 bg-violet-600 hover:bg-violet-500 text-white font-bold px-12 py-5 rounded-2xl shadow-2xl shadow-violet-300/40 hover:shadow-violet-400/50 transition-all duration-300 text-lg hover:-translate-y-1">Start Free — No Credit Card <RiArrowRightLine className="text-2xl group-hover:translate-x-1 transition-transform" /></Link>
@@ -668,7 +634,6 @@ const CTASection = () => (
   </section>
 );
 
-// --- FOOTER ---
 const Footer = () => (
   <footer className="bg-slate-950 text-white pt-24 pb-12 px-6 border-t border-slate-800">
     <div className="max-w-6xl mx-auto">
@@ -696,23 +661,20 @@ const Footer = () => (
             <li className="flex items-center gap-3"><RiMailLine className="text-violet-400" /> hello@interviewiq.ai</li>
             <li className="flex items-center gap-3"><RiPhoneLine className="text-violet-400" /> +1 (555) 123-4567</li>
             <li className="flex items-center gap-3"><RiMapPin2Line className="text-violet-400" /> San Francisco, CA</li>
-            <li className="flex items-center gap-3"><RiTimeLine className="text-violet-400" /> Mon-Fri 9am-6pm PST</li>
           </ul>
         </div>
       </div>
       <div className="pt-10 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-between gap-6">
-        <p className="text-slate-500 text-xs">© {new Date().getFullYear()} InterviewIQ AI. All rights reserved. Built with ❤️ for developers.</p>
+        <p className="text-slate-500 text-xs">© {new Date().getFullYear()} InterviewIQ AI. All rights reserved.</p>
         <div className="flex items-center gap-8 text-xs text-slate-500 font-medium">
           <Link to="/auth" className="hover:text-white transition">Privacy Policy</Link>
           <Link to="/auth" className="hover:text-white transition">Terms of Service</Link>
-          <Link to="/auth" className="hover:text-white transition">Cookies</Link>
         </div>
       </div>
     </div>
   </footer>
 );
 
-// --- BACK TO TOP ---
 const BackToTop = () => {
   const [show, setShow] = useState(false);
   useEffect(() => { const onScroll = () => setShow(window.scrollY > 800); window.addEventListener("scroll", onScroll); return () => window.removeEventListener("scroll", onScroll); }, []);
