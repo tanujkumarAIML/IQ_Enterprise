@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   RiVideoLine, RiFileTextLine, RiRobot2Line, RiArrowRightLine, RiArrowLeftLine,
-  RiStarFill, RiQuoteLeftLine, RiCodeLine, RiBarChartLine, RiShieldLine,
+  RiStarFill, RiDoubleQuotesL, RiCodeLine, RiBarChartLine, RiShieldLine,
   RiPlayCircleLine, RiCloseLine, RiMenuLine, RiCheckLine, RiArrowDownSLine,
   RiTwitterXFill, RiGithubFill, RiLinkedinBoxFill, RiMailLine, RiPhoneLine,
   RiMapPin2Line, RiTimeLine, RiFlashlightLine, RiCpuLine, RiChatSmile2Line,
@@ -500,7 +500,7 @@ const TestimonialsSection = () => {
       <div className="relative max-w-3xl mx-auto">
         <AnimatePresence mode="wait">
           <motion.div key={current} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.4, ease: "easeInOut" }} className="bg-slate-50 border border-slate-200 rounded-3xl p-10 text-center">
-            <RiQuoteLeftLine className="text-violet-200 text-4xl mx-auto mb-6" />
+            <RiDoubleQuotesL className="text-violet-200 text-4xl mx-auto mb-6" />
             <div className="flex justify-center gap-1 mb-6">{Array.from({ length: TESTIMONIALS[current].rating }).map((_, i) => <RiStarFill key={i} className="text-amber-400 text-lg" />)}</div>
             <p className="text-lg text-slate-700 leading-relaxed mb-8 font-medium">"{TESTIMONIALS[current].text}"</p>
             <div className="flex items-center justify-center gap-4">
